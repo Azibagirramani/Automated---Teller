@@ -1,0 +1,39 @@
+
+@import "../mixins/forms";
+
+//bootstrap/_globaloverride.scss
+// Language: scss
+// Path: src\sass\bootstrap\_globaloverride.scss
+
+
+.form-control {
+    @include mixin-form-control-default-override;
+    border-bottom: #E7E9EB solid 1px !important;
+}
+
+.form-control:focus {
+    @include mixin-form-control-default-override;
+    border-bottom: #E7E9EB solid 1px !important;
+}
+
+
+
+// header classes override 
+
+h1 {
+    color: #90949f;
+}
+
+
+
+
+
+// buttons global override
+
+.btn {
+    border-radius: 0 !important;
+    border: 0 !important;
+    &:focus {
+        box-shadow: none !important  
+    }
+}
