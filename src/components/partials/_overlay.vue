@@ -1,5 +1,5 @@
 <template>
-  <b-overlay :show="show" rounded="sm" variant="primary">
+  <b-overlay :show="show" rounded="sm" variant="">
     <slot></slot>
   </b-overlay>
 </template>

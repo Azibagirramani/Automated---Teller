@@ -7,6 +7,9 @@ import store from "./store";
 // Services injection
 import "./service/services.index"
 
+// Apex chart injection
+import "./plugins/apexChart";
+
 import VueParticles from "vue-particles";
 Vue.use(VueParticles);
 

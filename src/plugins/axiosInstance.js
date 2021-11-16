@@ -2,9 +2,8 @@ import Axios from "axios";
 
 const productionUrl = "https://dotmac-fastapi-backend.herokuapp.com/";
 
-const instance = Axios({
+const instance = Axios.create({
   baseURL: productionUrl,
-  timeout: 1000,
 });
 
 export default instance;
