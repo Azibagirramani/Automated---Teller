@@ -4,6 +4,9 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+// sse injection
+import "./plugins/ssePlugin"
+
 // Services injection
 import "./service/services.index"
 
