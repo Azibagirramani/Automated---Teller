@@ -1,8 +1,8 @@
 <template>
   <div class="">
     <select class="form-control form-control-sm" id="accounts">
-      <option v-for="(item, index) in items" :key="index" :value="items.name">
-        {{ item.name }}
+      <option v-for="(item, index) in items" :key="index" :value="items">
+        {{ item }}
       </option>
     </select>
   </div>
@@ -23,11 +23,7 @@ export default {
       type: Array,
       required: false,
       default() {
-        return [
-          {
-            name: "item",
-          },
-        ];
+        return ["items"];
       },
     },
   },

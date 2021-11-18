@@ -1,18 +1,16 @@
 <template>
   <div class="">
-    <b-sidebar id="sidebar-backdrop" backdrop shadow v-model="sidebarHidden">
-      <div class="p-0 m-0">
-        <b-nav vertical>
-          <b-nav-item
-            v-for="(route, index) in routes"
-            :key="index"
-            class="text-center p-0"
-          >
-            <span class="">{{ route.name }}</span>
-          </b-nav-item>
-        </b-nav>
-      </div>
-    </b-sidebar>
+    <div class="p-0 m-0">
+      <b-nav vertical>
+        <b-nav-item
+          v-for="(route, index) in routes"
+          :key="index"
+          class="text-center p-0"
+        >
+          <span class="">{{ route.name }}</span>
+        </b-nav-item>
+      </b-nav>
+    </div>
   </div>
 </template>
 

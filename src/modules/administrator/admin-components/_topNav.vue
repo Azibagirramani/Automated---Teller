@@ -30,6 +30,11 @@
             >
           </li>
         </ul>
+        <div class="">
+          <a class="btn btn-outline-light" href="#">
+            <i class="fa fa-sign-out"></i> Logout
+          </a>
+        </div>
       </div>
     </div>
   </nav>
@@ -69,7 +74,7 @@ nav {
     li { 
       a {
         font-size: 0.8rem;
-        font-weight: bold;
+        font-weight: 600;
         color: rgb(218, 214, 214) !important;
         text-transform: upperCase;
         &:hover {
