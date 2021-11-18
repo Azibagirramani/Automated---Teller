@@ -3,8 +3,8 @@
     <apexchart
       :options="options"
       :series="series"
-      height="100%"
-      width="100%"
+      :height="height"
+      :width="width"
     ></apexchart>
   </div>
 </template>
@@ -12,9 +12,18 @@
 <script>
 export default {
   name: "chart-component",
-  data() {
-    return {
-      options: {
+  props: {
+    height: {
+      type: String,
+      default: "100%",
+    },
+    width: {
+      type: String,
+      default: "100%",
+    },
+    options: {
+      type: Object,
+      default: () => ({
         chart: {
           toolbar: {
             show: false,
@@ -40,44 +49,14 @@ export default {
         grid: {
           show: false,
         },
-        stroke: {
-          width: 1,
-          curve: "straight",
-          colors: ["#fff"],
-          dashArray: 0,
-          lineCap: "butt",
-        },
-        fill: {
-          colors: ["#fff"],
-        },
-        xaxis: {
-          show: true,
-          crosshairs: {
-            show: true,
-            width: 2,
-            opacity: 1,
-          },
-          labels: {
-            show: false,
-          },
-          axisTicks: {
-            show: true,
-          },
-          axisBorder: {
-            show: false,
-          },
-          style: {
-            colors: ["#fff"],
-          },
-        },
-        yaxis: {
-          show: false,
-        },
         legend: {
           show: false,
         },
-      },
-      series: [
+      }),
+    },
+    series: {
+      type: Array,
+      default: () => [
         {
           data: [1, 2, 3, 8, 10, 5, 4, 1],
         },
@@ -88,7 +67,26 @@ export default {
           data: [9, 7, 5, 2, 8, 0, 8, 3],
         },
       ],
-    };
+    },
+  },
+  data() {
+    return {};
+  },
+  watch: {
+    options: {
+      handler(val) {
+        this.chart.updateOptions(val);
+      },
+    },
+    deep: true,
+    immediate: true,
+  },
+  series: {
+    handler(val) {
+      this.chart.updateSeries(val);
+    },
+    deep: true,
+    immediate: true,
   },
 };
 </script>

@@ -1,0 +1,27 @@
+/**
+    code names
+    fc: font-color
+*/
+
+@import "../base/_colors";
+
+
+.fc--primary {
+    color: $primary-color;
+}
+
+.fc--primary-light {
+    color: $primary-light-color;
+}
+
+.fc--primary-lighter {
+    color: $primary-lighter;
+}
+
+.fc--primary-offc {
+    color: $primary-off-color;
+}
+
+.fc--primary-dark-shade {
+    color: $primary-dark-shade;
+}
