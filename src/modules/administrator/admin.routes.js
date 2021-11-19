@@ -13,6 +13,10 @@ const routes = [
         path: "",
         component: () => import("./dashboard.vue"),
       },
+      {
+        path: "data-sync",
+        component: () => import("./sync.vue"),
+      },
     ],
   },
 ];

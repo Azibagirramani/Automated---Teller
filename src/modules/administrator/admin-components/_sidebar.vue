@@ -5,6 +5,7 @@
         <b-nav-item
           v-for="(route, index) in routes"
           :key="index"
+          :to="route.path"
           class="text-center p-0"
         >
           <span class="">{{ route.name }}</span>
@@ -21,7 +22,7 @@ export default {
       sidebarHidden: false,
       routes: [
         {
-          path: "",
+          path: "/portal",
           name: "Overview",
           icon: "mdi-view-dashboard",
         },
@@ -31,8 +32,8 @@ export default {
           icon: "mdi-view-dashboard",
         },
         {
-          path: "",
-          name: "Transfers",
+          path: "/portal/data-sync",
+          name: "Sync",
           icon: "mdi-view-dashboard",
         },
         {

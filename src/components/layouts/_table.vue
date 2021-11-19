@@ -10,11 +10,6 @@
     responsive="sm"
     :busy="loading"
   >
-    <template #cell(status)="data">
-      <div class="" v-if="data.item.hasOwnProperty('status')">
-        <span class="text-primary text-uppercase">{{ data.item.status }}</span>
-      </div>
-    </template>
   </b-table>
 </template>
 
