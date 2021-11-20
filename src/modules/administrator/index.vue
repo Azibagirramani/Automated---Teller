@@ -5,7 +5,9 @@
         <SideBar />
       </div>
       <div class="col p-0 bg-secondary">
-        <router-view />
+        <div class="px-4">
+          <router-view />
+        </div>
       </div>
     </div>
   </div>

@@ -28,4 +28,14 @@ export default {
 };
 </script>
 
-<style></style>
+
+<style lang="scss" scoped>
+@import "../../sass/base/__colors.scss";
+.card--hover {
+  cursor: pointer !important;
+  &:hover {
+    outline: 0.1rem solid $primary-color !important;
+  }
+}
+</style>
+

@@ -11,11 +11,11 @@ const routes = [
     children: [
       {
         path: "",
-        component: () => import("./dashboard.vue"),
+        component: () => import("./admin-pages/dashboard.vue"),
       },
       {
         path: "data-sync",
-        component: () => import("./sync.vue"),
+        component: () => import("./admin-pages/sync.vue"),
       },
     ],
   },

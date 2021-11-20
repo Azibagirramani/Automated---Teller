@@ -67,12 +67,11 @@
 </template>
 
 <script>
-
-import BaseTable from "../../components/layouts/_table.vue";
-import BaseCard from "../../components/partials/_basecard.vue";
-import BaseOverlay from "../../components/partials/_overlay.vue";
-import SyncActivities from "./admin-partials/_syncActivities.vue";
-import BaseChart from "../../components/chart/_baseChart.vue";
+import BaseChart from "../../../components/chart/_baseChart.vue";
+import BaseTable from "../../../components/layouts/_table.vue";
+import BaseCard from "../../../components/partials/_basecard.vue";
+import BaseOverlay from "../../../components/partials/_overlay.vue";
+import SyncActivities from "../admin-partials/_syncActivities.vue";
 export default {
   name: "Dashboard",
   components: {
