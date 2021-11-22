@@ -1,12 +1,4 @@
 <template>
-  <!-- <div class="card" :class="baseExClass">
-    <div class="card-header bg-transparent" v-if="header">
-      <slot name="header"></slot>
-    </div>
-    <div class="card-body" :class="exClass">
-      <slot></slot>
-    </div>
-  </div> -->
   <md-card :md-with-hover="withHover" class="" :class="baseExClass">
     <md-card-header v-if="header">
       <div class="md-title">Card with hover effect</div>
