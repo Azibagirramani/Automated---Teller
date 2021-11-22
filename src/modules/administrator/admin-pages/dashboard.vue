@@ -1,173 +1,119 @@
 <template>
-  <div class="" id="dasboard">
-    <div class="row px-5 d-flex mt-5">
-      <div class="col-md-9 flex-fill">
-        <BaseCard
-          :baseExClass="'border-0 rounded-0 p-0 m-0'"
-          :exClass="'p-0 m-0'"
-        >
-          <BaseTable
-            :borderless="true"
-            :items="tabledata"
-            :columns="fields"
-          ></BaseTable>
-        </BaseCard>
-      </div>
-      <div class="col-md-3 flex-fill">
-        <BaseOverlay :show="false">
-          <BaseCard
-            :baseExClass="'border-0 rounded'"
-            :header="true"
-            :exClass="'p-0 m-0'"
-          >
-            <template v-slot:header>
-              <h6 class="text-center fw-bold text-uppercase">Overview</h6>
-            </template>
-            <div class="d-flex flex-column gap-4 align-items-center">
-              <div class="text-center">
-                <p class="display-4 fc--primary-dark-shade fw--6">400,000</p>
-                <p class="text-uppercase fw--6">Customers</p>
-              </div>
-              <div class="text-center border-top">
-                <p class="display-4 fc--primary-dark-shade fw--6">400,000</p>
-                <p class="text-uppercase fw--6">Total syncs</p>
-              </div>
-            </div>
-          </BaseCard>
-        </BaseOverlay>
+  <div id="dasboard">
+    <div class="d-flex justify-content-between align-items-center mt-5">
+      <h4>Dotmac Technologies</h4>
+      <div class="d-flex align-items-center gap-4">
+        <md-icon>settings</md-icon>
+        <BaseButton
+          :exClass="'bg-primary text-white fw-bold rounded'"
+          :label="'Syncronize data'"
+        />
       </div>
     </div>
 
-    <div class="row px-5 d-flex mt-5">
-      <div class="col-md-9 flex-fill">
-        <SyncActivities></SyncActivities>
-      </div>
-      <div class="col-md-3 flex-fill">
-        <BaseOverlay :show="false">
-          <BaseCard
-            :baseExClass="'border-0 rounded'"
-            :header="true"
-            :exClass="'p-0 m-0'"
-          >
-            <template v-slot:header>
-              <h6 class="text-center fw-bold text-uppercase">overrall</h6>
-            </template>
-            <div>
-              <BaseChart
-                :series="series"
-                :options="options"
-                :height="'300rem'"
-              />
+    <div class="mt-5">
+      <div class="row w-100">
+        <div
+          class="col p-0"
+          v-for="(items, index) in [1, 3, 5, 6, 5, 7]"
+          :key="index"
+        >
+          <BaseCard :baseExClass="'md-elevation-0'">
+            <div class="d-flex flex-column align-items-center">
+              <p>Customers</p>
+              <p class="fs-4 fw-bold">100,00.0</p>
             </div>
           </BaseCard>
-        </BaseOverlay>
+        </div>
       </div>
+    </div>
+
+    <div class="mt-5 p-0">
+      <BaseChart :height="'320rem'" :series="series" :options="options" />
+    </div>
+
+    <div class="mt-5">
+      <BaseTable />
     </div>
   </div>
 </template>
 
 <script>
-import BaseChart from "../../../components/chart/_baseChart.vue";
-import BaseTable from "../../../components/layouts/_table.vue";
+import BaseButton from "../../../components/forms/_button.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
-import BaseOverlay from "../../../components/partials/_overlay.vue";
-import SyncActivities from "../admin-partials/_syncActivities.vue";
+import BaseChart from "../../../components/chart/_baseChart.vue";
+import BaseTable from "../../../components/layouts/_table.vue"
 export default {
   name: "Dashboard",
   components: {
+    BaseButton,
     BaseCard,
-    BaseTable,
-    BaseOverlay,
     BaseChart,
-    SyncActivities,
+    BaseTable
   },
   data() {
     return {
-      fields: [
-        { key: "name" },
-        { key: "email" },
+      series: [
         {
-          key: "status",
-          formatter: (value) => {
-            return value.toLowerCase() === "active" ? "Active" : "Inactive";
-          },
+          name: "series1",
+          data: [140, 40, 28, 51, 42, 109, 100],
+        },
+        {
+          name: "series2",
+          data: [170, 32, 100, 32, 34, 52, 41],
+        },
+        {
+          name: "series2",
+          data: [11, 32, 45, 32, 34, 52, 201],
         },
       ],
-      tabledata: [
-        {
-          name: "John Doe",
-          email: "",
-          status: "active",
-        },
-        {
-          name: "John Doe",
-          email: "",
-          status: "active",
-        },
-        {
-          name: "John Doe",
-          email: "",
-          status: "active",
-        },
-        {
-          name: "John Doe",
-          email: "",
-          status: "active",
-        },
-        {
-          name: "John Doe",
-          email: "",
-          status: "active",
-        },
-      ],
-      series: [5],
       options: {
-        chart: {
-          toolbar: {
-            show: false,
-          },
-          type: "donut",
-        },
-        grid: {
-          show: false,
-        },
         legend: {
           show: false,
         },
-        colors: ["#1a814c"],
-        stroke: {
-          width: 0,
-          colors: ["red"],
+        chart: {
+          type: "area",
+          toolbar: {
+            show: false,
+          },
         },
         dataLabels: {
           enabled: false,
         },
-        tooltip: {
-          enabled: false,
+        stroke: {
+          curve: "smooth",
         },
-        plotOptions: {
-          pie: {
-            donut: {
-              size: "90%",
-              labels: {
-                show: true,
-                name: {
-                  show: true,
-                  offsetY: 38,
-                },
-                value: {
-                  show: true,
-                  offsetY: -10,
-                  fontSize: "48px",
-                },
-              },
+        xaxis: {
+          labels: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+        },
+        grid: {
+          yaxis: {
+            lines: {
+              show: false,
+            },
+          },
+          xaxis: {
+            lines: {
+              show: true,
             },
           },
         },
+        yaxis: {
+          labels: {
+            show: false,
+          },
+          axisBorder: {
+            show: false,
+          },
+        },
+        colors: ["#1a814c", "#58b77d", "#d3fadf"],
       },
     };
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

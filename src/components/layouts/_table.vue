@@ -1,20 +1,33 @@
 <template>
-  <b-table
-    :bordered="bordered"
-    :borderless="borderless"
-    :outlined="outlined"
-    :small="small"
-    :hover="hover"
-    :fields="columns"
-    :items="items"
-    responsive="sm"
-    :busy="loading"
-  >
-  </b-table>
+  <md-table v-model="items">
+    <md-table-row slot="md-table-row" slot-scope="{ item }">
+      <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{
+        item.id
+      }}</md-table-cell>
+      <md-table-cell md-label="Name" md-sort-by="name">{{
+        item.name
+      }}</md-table-cell>
+      <md-table-cell md-label="Email" md-sort-by="email">{{
+        item.email
+      }}</md-table-cell>
+      <md-table-cell md-label="Gender" md-sort-by="gender">{{
+        item.gender
+      }}</md-table-cell>
+      <md-table-cell md-label="Job Title" md-sort-by="title">{{
+        item.title
+      }}</md-table-cell>
+    </md-table-row>
+
+  </md-table>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      paginatedItems: []
+    };
+  },
   props: {
     loading: {
       type: Boolean,
@@ -22,12 +35,43 @@ export default {
     },
     items: {
       type: Array,
-      required: [true, "The items prop is required."],
+      required: [false, "The items prop is required."],
       default: () => [
-        { age: 40, first_name: "Dickerson", last_name: "Macdonald" },
-        { age: 21, first_name: "Larsen", last_name: "Shaw" },
-        { age: 89, first_name: "Geneva", last_name: "Wilson" },
-        { age: 38, first_name: "Jami", last_name: "Carney" },
+        {
+          id: 1,
+          name: "Shawna Dubbin",
+          email: "sdubbin0@geocities.com",
+          gender: "Male",
+          title: "Assistant Media Planner",
+        },
+        {
+          id: 1,
+          name: "Shawna Dubbin",
+          email: "sdubbin0@geocities.com",
+          gender: "Male",
+          title: "Assistant Media Planner",
+        },
+        {
+          id: 1,
+          name: "Shawna Dubbin",
+          email: "sdubbin0@geocities.com",
+          gender: "Male",
+          title: "Assistant Media Planner",
+        },
+        {
+          id: 1,
+          name: "Shawna Dubbin",
+          email: "sdubbin0@geocities.com",
+          gender: "Male",
+          title: "Assistant Media Planner",
+        },
+        {
+          id: 1,
+          name: "Shawna Dubbin",
+          email: "sdubbin0@geocities.com",
+          gender: "Male",
+          title: "Assistant Media Planner",
+        },
       ],
     },
     columns: {
@@ -51,30 +95,10 @@ export default {
         },
       ],
     },
-    bordered: {
-      type: Boolean,
-      required: [false, "The bordered prop is not required."],
-      default: false,
-    },
-    borderless: {
-      type: Boolean,
-      required: [false, "The borderless prop is not required."],
-      default: false,
-    },
-    outlined: {
-      type: Boolean,
-      required: [false, "The outlined prop is not required."],
-      default: false,
-    },
-    small: {
-      type: Boolean,
-      required: [false, "The small prop is not required."],
-      default: false,
-    },
-    hover: {
-      type: Boolean,
-      required: [false, "The hover prop is not required."],
-      default: false,
+  },
+  methods: {
+    updatePagination(page, pageSize, sort, sortOrder) {
+      console.log("pagination has updated", page, pageSize, sort, sortOrder);
     },
   },
 };
