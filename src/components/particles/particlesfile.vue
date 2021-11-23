@@ -2,7 +2,7 @@
   <div class="particles-file">
     <div class="particles-file__content">
       <vue-particles
-        color="#dedede"
+        :color="color"
         :particleOpacity="1"
         :particlesNumber="80"
         shapeType="circle"
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+
+// dedede
 export default {};
 </script>
 

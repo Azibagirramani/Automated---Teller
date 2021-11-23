@@ -43,7 +43,7 @@
         </md-list>
       </md-app-drawer>
 
-      <md-app-content class="m-0 p-0">
+      <md-app-content class="">
         <router-view></router-view>
       </md-app-content>
     </md-app>
