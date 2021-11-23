@@ -14,7 +14,9 @@
                 <BaseInput
                   :type="'email'"
                   v-model="form.email"
-                  :name="'email'"
+                  :name="'Email'"
+                  :label="'Email'"
+                  :icon="'mail'"
                 />
               </div>
 
@@ -22,7 +24,8 @@
                 <BaseInput
                   :type="'password'"
                   v-model="form.password"
-                  :name="'password'"
+                  :name="'Password'"
+                  :label="'Password'"
                 />
               </div>
 
@@ -38,10 +41,12 @@
         </div>
       </BaseOverlay>
     </div>
+    <BaseToast :label="msg" :showSnackbar="showSnackbar"/>
   </div>
 </template>
 
 <script>
+import BaseToast from "../../components/partials/_toast.vue";
 import BaseInput from "../../components/forms/_input.vue";
 import BaseOverlay from "../../components/partials/_overlay.vue";
 export default {
@@ -49,13 +54,15 @@ export default {
   components: {
     BaseInput,
     BaseOverlay,
-
+    BaseToast
   },
 
   data() {
     return {
       loader: false,
       form: {},
+      msg: "",
+      showSnackbar: false,
     };
   },
 
@@ -66,7 +73,8 @@ export default {
         const response = await this.$AuthService.login(this.form);
         console.log(response);
       } catch (error) {
-        console.log(error);
+        this.msg = error;
+        this.showSnackbar = true;
       } finally {
         this.loader = false;
       }
@@ -123,7 +131,7 @@ export default {
 }
 
 .card {
-  width: 38rem;
+  width: 34rem;
 }
 
 .card p {

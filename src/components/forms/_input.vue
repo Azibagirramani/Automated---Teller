@@ -1,15 +1,19 @@
 <template>
   <div>
-    <label :for="name" v-if="label">{{ label }}</label>
-    <input
-      :type="type"
-      class="form-control"
-      :id="name"
-      v-model="ivalue"
-      :aria-describedby="name"
-      :placeholder="placeholder || name"
-    />
-    <small :id="name" class="form-text"></small>
+    <md-field>
+      <label :for="name" v-if="label" class="fw-bold">{{
+        computedLabel
+      }}</label>
+      <md-input
+        :type="type"
+        :id="name"
+        v-model="ivalue"
+        :aria-describedby="name"
+        :placeholder="placeholder || name"
+        :required="required"
+      ></md-input>
+      <md-icon v-if="icon">{{ icon }}</md-icon>
+    </md-field>
   </div>
 </template>
 
@@ -17,6 +21,10 @@
 export default {
   components: {},
   props: {
+    required: {
+      type: Boolean,
+      default: false,
+    },
     value: {
       type: String,
       required: false,
@@ -42,8 +50,15 @@ export default {
       type: String,
       required: false,
     },
+    icon: {
+      type: String,
+      required: false,
+    },
   },
   computed: {
+    computedLabel() {
+      return this.label || this.name;
+    },
     ivalue: {
       get() {
         return this.value;
@@ -56,4 +71,13 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+@import "../../sass/base/__colors.scss";
+
+label {
+  color: $primary-color !important;
+}
+.md-input:focus {
+  border-color: red !important;
+}
+</style>

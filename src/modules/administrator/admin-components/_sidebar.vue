@@ -1,16 +1,19 @@
 <template>
   <div class="">
-    <div class="p-0 m-0">
-      <b-nav vertical>
-        <b-nav-item
-          v-for="(route, index) in routes"
-          :key="index"
-          class="text-center p-0"
-        >
-          <span class="">{{ route.name }}</span>
-        </b-nav-item>
-      </b-nav>
-    </div>
+    <md-list>
+      <!-- <md-list-item to="/portal">
+        <md-icon>people</md-icon>
+        <span class="md-list-item-text">Customers</span>
+      </md-list-item>
+      <md-list-item to="/portal/data-sync">
+        <md-icon>cached</md-icon>
+        <span class="md-list-item-text">Synchronize</span>
+      </md-list-item>
+      <md-list-item to="/portal">
+        <md-icon>history</md-icon>
+        <span class="md-list-item-text">Activities</span>
+      </md-list-item> -->
+    </md-list>
   </div>
 </template>
 
@@ -21,30 +24,30 @@ export default {
       sidebarHidden: false,
       routes: [
         {
-          path: "",
+          path: "/portal",
           name: "Overview",
-          icon: "mdi-view-dashboard",
+          icon: "dashboard",
         },
         {
           path: "",
           name: "Customers",
-          icon: "mdi-view-dashboard",
+          icon: "people",
         },
         {
-          path: "",
-          name: "Transfers",
-          icon: "mdi-view-dashboard",
+          path: "/portal/data-sync",
+          name: "Sync",
+          icon: "cached",
         },
         {
           path: "",
           name: "Activities",
-          icon: "mdi-view-dashboard",
+          icon: "history",
         },
-        {
-          path: "",
-          name: "Account",
-          icon: "mdi-view-dashboard",
-        },
+        // {
+        //   path: "",
+        //   name: "Account",
+        //   icon: "mdi-view-dashboard",
+        // },
       ],
     };
   },
@@ -52,17 +55,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// li a colors
-$link-color: #bcbcbd;
-
-// normal color
-$hover-color: #ebf5f0;
-
-// default color
-$default-color: #1a814c;
-
-// light hover color
-$hover-light-color: #1a814c;
 
 ul {
   padding: 0px;

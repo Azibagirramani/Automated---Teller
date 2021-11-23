@@ -11,7 +11,13 @@ const routes = [
     children: [
       {
         path: "",
-        component: () => import("./dashboard.vue"),
+        name: "Overview",
+        component: () => import("./admin-pages/dashboard.vue"),
+      },
+      {
+        path: "data-sync",
+        name: "Data Sync",
+        component: () => import("./admin-pages/sync.vue"),
       },
     ],
   },

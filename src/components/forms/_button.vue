@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button :type="type" class="btn" :class="exClass">{{ label }}</button>
+    <md-button :type="type" class="md" :class="exClass">{{ label }}</md-button>
   </div>
 </template>
 
@@ -9,18 +9,21 @@ export default {
   props: {
     label: {
       type: String,
-      required: true,
+      required: false,
+      default: "button",
     },
     type: {
       type: String,
-      required: true,
+      required: false,
+      default: "button",
     },
     exClass: {
       type: String,
       required: false,
+      default: "",
     },
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

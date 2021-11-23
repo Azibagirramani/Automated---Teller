@@ -4,6 +4,10 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+
+// materialize css
+import "./plugins/materialVue"
+
 // sse injection
 import "./plugins/ssePlugin"
 
