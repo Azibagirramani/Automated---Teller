@@ -5,6 +5,8 @@ import router from "./router";
 import store from "./store";
 
 
+import "./plugins/numberFormatter";
+
 // materialize css
 import "./plugins/materialVue"
 

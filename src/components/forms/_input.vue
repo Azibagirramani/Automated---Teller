@@ -1,29 +1,35 @@
 <template>
-  <div>
-    <md-field>
-      <label :for="name" v-if="label" class="fw-bold">{{
-        computedLabel
-      }}</label>
-      <md-input
-        :type="type"
-        :id="name"
-        v-model="ivalue"
-        :aria-describedby="name"
-        :placeholder="placeholder || name"
-        :required="required"
-      ></md-input>
-      <md-icon v-if="icon">{{ icon }}</md-icon>
-    </md-field>
+  <div id="input">
+    <ValidationProvider rules="required" v-slot="{ errors }">
+      <md-field>
+        <label :for="name" v-if="label" class="fw-bold">{{
+          computedLabel
+        }}</label>
+        <md-input
+          :type="type"
+          :id="name"
+          v-model="ivalue"
+          :aria-describedby="name"
+          :placeholder="placeholder || name"
+          :required="required"
+        ></md-input>
+        <md-icon v-if="icon">{{ icon }}</md-icon>
+      </md-field>
+      <span class="text-danger">{{ errors[0] }}</span>
+    </ValidationProvider>
   </div>
 </template>
 
 <script>
+import { ValidationProvider } from "vee-validate";
 export default {
-  components: {},
+  components: {
+    ValidationProvider,
+  },
   props: {
     required: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     value: {
       type: String,

@@ -4,7 +4,12 @@ export default {
     update: "update",
   },
 
+
+  dashboard: {
+    overview: "descriptions",
+  },
+
   customers: {
-    fetchAll: "/customers",
+    fetchAll: "local-customers",
   },
 };

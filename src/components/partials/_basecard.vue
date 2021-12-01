@@ -1,19 +1,12 @@
 <template>
-  <md-card :md-with-hover="withHover" class="" :class="baseExClass">
-    <md-card-header v-if="header">
-      <div class="md-title">Card with hover effect</div>
-      <div class="md-subhead">It also have a ripple</div>
-    </md-card-header>
-
-    <md-card-content>
+<div class="card flex-fil" :class="baseExClass">
+    <div class="card-header bg-transparent" :class="exHeader" v-if="header">
+      <slot name="header"></slot>
+    </div>
+    <div class="card-body" :class="exClass">
       <slot></slot>
-    </md-card-content>
-
-    <md-card-actions v-if="actions">
-      <md-button>Action</md-button>
-      <md-button>Action</md-button>
-    </md-card-actions>
-  </md-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -43,6 +36,11 @@ export default {
       default: "",
       required: false,
     },
+    exHeader: {
+      type: String,
+      default: "",
+      required: false,
+    },
   },
 };
 </script>
@@ -50,6 +48,7 @@ export default {
 <style lang="scss" scoped>
 @import "../../sass/base/__colors.scss";
 .card--hover {
+  transition: all 500ms ease-in-out;
   cursor: pointer !important;
   &:hover {
     outline: 0.1rem solid $primary-color !important;

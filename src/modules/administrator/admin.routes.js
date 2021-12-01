@@ -1,11 +1,13 @@
 import Index from "./index.vue";
 
+import store from "../../store/index";
+
 const routes = [
   {
     path: "/portal",
     component: Index,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
       title: "Administrator",
     },
     children: [
@@ -16,10 +18,26 @@ const routes = [
       },
       {
         path: "data-sync",
-        name: "Data Sync",
+        name: "Data Syncronization",
         component: () => import("./admin-pages/sync.vue"),
       },
     ],
+
+    beforeEnter: (to, from, next) => {
+      if (to.meta.requiresAuth) {
+        if (store.getters.isAuth) {
+          next();
+        } else {
+          next({
+            path: "/authentication/login",
+            query: { redirect: to.fullPath },
+          });
+        }
+        console.log(to, from)
+      } else {
+        next();
+      }
+    },
   },
 ];
 
