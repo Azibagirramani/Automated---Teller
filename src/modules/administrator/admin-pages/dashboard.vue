@@ -16,8 +16,36 @@
         <div class="row w-100">
           <div
             class="col p-0"
-            v-for="(items, index) in [1, 3, 5, 6, 5, 7]"
-            :key="index"
+          >
+            <BaseCard :baseExClass="'md-elevation-0'">
+              <div class="d-flex flex-column align-items-center">
+                <p>Customers</p>
+                <p class="fs-4 fw-bold">100,00.0</p>
+              </div>
+            </BaseCard>
+          </div>
+          <div
+            class="col p-0"
+          >
+            <BaseCard :baseExClass="'md-elevation-0'">
+              <div class="d-flex flex-column align-items-center">
+                <p>Customers</p>
+                <p class="fs-4 fw-bold">100,00.0</p>
+              </div>
+            </BaseCard>
+          </div>
+          <div
+            class="col p-0"
+          >
+            <BaseCard :baseExClass="'md-elevation-0'">
+              <div class="d-flex flex-column align-items-center">
+                <p>Customers</p>
+                <p class="fs-4 fw-bold">100,00.0</p>
+              </div>
+            </BaseCard>
+          </div>
+          <div
+            class="col p-0"
           >
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">

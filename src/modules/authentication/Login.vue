@@ -7,6 +7,13 @@
         <div class="">
           <div class="card border shadow-lg p-0">
             <div class="card-header bg-transparent border-0 pt-5 px-5">
+              <div class="d-flex justify-content-center">
+                <img
+                class="card-img-top"
+                src="../../assets/img/logo.jpg"
+                alt="Card image cap"
+              />
+              </div>
               <h1 class="text-uppercase">login</h1>
             </div>
             <div class="card-body px-5">
@@ -41,7 +48,7 @@
         </div>
       </BaseOverlay>
     </div>
-    <BaseToast :label="msg" :showSnackbar="showSnackbar"/>
+    <BaseToast :label="msg" :showSnackbar="showSnackbar" />
   </div>
 </template>
 
@@ -54,7 +61,7 @@ export default {
   components: {
     BaseInput,
     BaseOverlay,
-    BaseToast
+    BaseToast,
   },
 
   data() {
@@ -84,6 +91,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card-img-top {
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+}
 @mixin btn-base($backgroundColor: #1a814c, $color: #90949f) {
   cursor: pointer;
   font-size: 16px;
