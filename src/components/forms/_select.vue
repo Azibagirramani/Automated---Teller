@@ -1,10 +1,12 @@
 <template>
-  <div class="">
-    <select class="form-control form-control-sm text-capitalize" id="accounts">
-      <option v-for="(item, index) in items" :key="index" :value="items">
-        {{ item }}
-      </option>
-    </select>
+  <div class="d-flex align-items-center gap-2">
+    <md-field>
+      <md-select v-model="country" name="country" id="country" md-dense>
+        <md-option v-for="(item, index) in items" :key="index" :value="items">
+          {{ item }}</md-option
+        >
+      </md-select>
+    </md-field>
   </div>
 </template>
 
@@ -13,7 +15,8 @@ export default {
   props: {
     label: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     placeholder: {
       type: String,
@@ -30,4 +33,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+p {
+  font-size: 0.8rem !important;
+  font-weight: bold;
+  display: inline;
+}
+</style>

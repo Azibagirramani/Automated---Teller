@@ -1,27 +1,19 @@
 <template>
   <div class="page-container">
-    <md-app>
-      <md-app-toolbar class="bg-primary" md-elevation="0">
-        <md-button
-          class="md-icon-button"
-          @click="toggleMenu"
-          v-if="!menuVisible"
-        >
-          <md-icon class="text-white">menu</md-icon>
-        </md-button>
-        <span class="text-white md-title">{{ this.$route.name }}</span>
+    <md-app md-waterfall md-mode="overlap">
+      <md-app-toolbar class="md-primary md-large">
+        <div class="md-toolbar-row">
+          <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
+            <md-icon>menu</md-icon>
+          </md-button>
 
+          <span class="md-title text-uppercase">{{ this.$route.name }}</span>
+        </div>
       </md-app-toolbar>
 
-      <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
+      <md-app-drawer :md-active.sync="menuVisible">
         <md-toolbar class="md-transparent" md-elevation="0">
-          <span>Navigation</span>
-
-          <div class="md-toolbar-section-end">
-            <md-button class="md-icon-button md-dense" @click="toggleMenu">
-              <md-icon>keyboard_arrow_left</md-icon>
-            </md-button>
-          </div>
+          Navigation
         </md-toolbar>
 
         <md-list>
@@ -81,7 +73,7 @@ $default-color: #1a814c;
 $hover-light-color: #1a814c;
 
 .bg-base {
-  background-color: #FDFDFD !important;
+  background-color: #fdfdfd !important;
 }
 
 .md-app {

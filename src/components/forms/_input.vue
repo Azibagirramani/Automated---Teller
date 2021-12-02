@@ -1,6 +1,6 @@
 <template>
   <div id="input">
-    <ValidationProvider rules="required" v-slot="{ errors }">
+    <ValidationProvider :rules="rules" v-slot="{ errors }">
       <md-field>
         <label :for="name" v-if="label" class="fw-bold">{{
           computedLabel
@@ -60,6 +60,11 @@ export default {
       type: String,
       required: false,
     },
+    rules: {
+      type: Array,
+      required: false,
+      default: () => [],
+    }
   },
   computed: {
     computedLabel() {

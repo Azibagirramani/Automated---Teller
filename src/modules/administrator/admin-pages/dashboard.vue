@@ -1,7 +1,7 @@
 <template>
   <div id="dasboard">
-    <div class="w-100 px-5">
-      <div class="d-flex justify-content-between align-items-center mt-5">
+    <div class="w-100">
+      <!-- <div class="d-flex justify-content-between align-items-center mt-5">
         <h4>Dotmac Technologies</h4>
         <div class="d-flex align-items-center gap-4">
           <md-icon>settings</md-icon>
@@ -10,45 +10,9 @@
             :label="'Syncronize data'"
           />
         </div>
-      </div>
+      </div> -->
 
-      <div class="mt-5">
-        <div class="row w-100">
-          <div class="col">
-            <BaseCard :baseExClass="'md-elevation-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p>Customers</p>
-                <p class="fs-4 fw-bold">100,00.0</p>
-              </div>
-            </BaseCard>
-          </div>
-          <div class="col">
-            <BaseCard :baseExClass="'md-elevation-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p>Customers</p>
-                <p class="fs-4 fw-bold">100,00.0</p>
-              </div>
-            </BaseCard>
-          </div>
-          <div class="col">
-            <BaseCard :baseExClass="'md-elevation-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p>Customers</p>
-                <p class="fs-4 fw-bold">100,00.0</p>
-              </div>
-            </BaseCard>
-          </div>
-          <div class="col">
-            <BaseCard :baseExClass="'md-elevation-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p>Customers</p>
-                <p class="fs-4 fw-bold">100,00.0</p>
-              </div>
-            </BaseCard>
-          </div>
-        </div>
-      </div>
-      <div class="mt-5 p-0">
+      <div class="p-0">
         <BaseCard
           :baseExClass="'border-0 shadow-sm'"
           :header="true"
@@ -68,7 +32,7 @@
           <div class="row">
             <div class="col-md-12">
               <BaseChart
-                :height="'200rem'"
+                :height="'400rem'"
                 :series="series"
                 :options="options"
               />
@@ -76,13 +40,97 @@
           </div>
         </BaseCard>
       </div>
+      <div class="px-0">
+        <div class="row w-100">
+          <div class="col p-0">
+            <BaseCard :baseExClass="'shadow-0  border-0 border-primary'">
+              <div class="d-flex flex-column align-items-center">
+                <p class="fs-4 fw-bold">100,00.0</p>
+                <p>Customers</p>
+              </div>
+            </BaseCard>
+          </div>
+          <div class="col p-0">
+            <BaseCard :baseExClass="'shadow-0  border-0'">
+              <div class="d-flex flex-column align-items-center">
+                <p class="fs-4 fw-bold">100,00.0</p>
+                <p>Syncs</p>
+              </div>
+            </BaseCard>
+          </div>
+          <div class="col p-0">
+            <BaseCard :baseExClass="'shadow-0  border-0'">
+              <div class="d-flex flex-column align-items-center">
+                <p class="fs-4 fw-bold">100,00.0</p>
+                <p>Activities</p>
+              </div>
+            </BaseCard>
+          </div>
+          <div class="col p-0">
+            <BaseCard :baseExClass="'shadow-0  border-0'">
+              <div class="d-flex flex-column align-items-center">
+                <p class="fs-4 fw-bold">100,00.0</p>
+                <p>Databases</p>
+              </div>
+            </BaseCard>
+          </div>
+          <div class="col p-0">
+            <BaseCard :baseExClass="'shadow-0 border-0'">
+              <div class="d-flex flex-column align-items-center">
+                <p class="fs-4 fw-bold">100,00.0</p>
+                <p>Sales Receipts</p>
+              </div>
+            </BaseCard>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-2 mt-5">
+      <BaseCard :baseExClass="'border-0 shadow-sm'">
+        <div class="row">
+          <div class="col">
+            <BaseCard
+              :header="true"
+              :baseExClass="'border-0 m-0 p-0'"
+              :exHeader="'border-0'"
+            >
+              <template v-slot:header>
+                <div class="d-flex justify-content-between">
+                  <h6 class="text-uppercase text-primary fw-bold">
+                    New Customers
+                  </h6>
+                  <p class="text-uppercase text-primary fw-bold">500 total</p>
+                </div>
+              </template>
+              <BaseChart :series="series2" :options="options" />
+            </BaseCard>
+          </div>
+          <div class="col">
+            <BaseCard
+              :header="true"
+              :baseExClass="'border-0 m-0 p-0'"
+              :exHeader="'border-0'"
+            >
+              <template v-slot:header>
+                <div class="d-flex justify-content-between">
+                  <h6 class="text-uppercase text-primary fw-bold">
+                    Sales Receipts
+                  </h6>
+                  <p class="text-uppercase text-primary fw-bold">500 total</p>
+                </div>
+              </template>
+              <BaseChart :series="series2" :options="options" />
+            </BaseCard>
+          </div>
+        </div>
+      </BaseCard>
     </div>
   </div>
 </template>
 
 <script>
 // import BaseOverlay from "../../../components/partials/_overlay.vue";
-import BaseButton from "../../../components/forms/_button.vue";
+// import BaseButton from "../../../components/forms/_button.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
 import BaseChart from "../../../components/chart/_baseChart.vue";
 // import BaseTable from "../../../components/layouts/_table.vue";
@@ -90,7 +138,7 @@ import BaseChart from "../../../components/chart/_baseChart.vue";
 export default {
   name: "Dashboard",
   components: {
-    BaseButton,
+    // BaseButton,
     BaseCard,
     BaseChart,
   },
@@ -111,6 +159,12 @@ export default {
         {
           name: "series2",
           data: [11, 32, 45, 32, 34, 52, 201],
+        },
+      ],
+      series2: [
+        {
+          name: "series1",
+          data: [140, 40, 28, 51, 42, 109, 100],
         },
       ],
       tableData: [
