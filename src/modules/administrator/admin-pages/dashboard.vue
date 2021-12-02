@@ -86,78 +86,15 @@
             </div>
           </template>
           <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
               <BaseChart
-                :height="'300rem'"
+                :height="'200rem'"
                 :series="series"
                 :options="options"
               />
             </div>
-            <div class="col">
-              <h5 class="m-0 p-0 fs-5 text-left">Legend</h5>
-              <div
-                class="
-                  d-flex
-                  flex-column
-                  justify-content-center
-                  align-items-center
-                  border-0
-                "
-              >
-                <div class="list-group w-100 border-0 mt-2">
-                  <label class="list-group-item">
-                    <input
-                      class="form-check-input me-1"
-                      type="checkbox"
-                      value=""
-                    />
-                    Created
-                  </label>
-                  <label class="list-group-item">
-                    <input
-                      class="form-check-input me-1"
-                      type="checkbox"
-                      value=""
-                    />
-                    Updated
-                  </label>
-                  <label class="list-group-item">
-                    <input
-                      class="form-check-input me-1"
-                      type="checkbox"
-                      value=""
-                    />
-                    Deleted
-                  </label>
-                  <label class="list-group-item">
-                    <input
-                      class="form-check-input me-1"
-                      type="checkbox"
-                      value=""
-                    />
-                    Failed
-                  </label>
-                </div>
-              </div>
-            </div>
           </div>
         </BaseCard>
-      </div>
-      <div class="mt-5">
-        <BaseOverlay :show="false">
-          <BaseCard
-            :baseExClass="'border-0 shadow-sm'"
-            :header="true"
-            :exHeader="'border-0'"
-          >
-            <div class="d-flex mb-4 justify-content-between align-items-center">
-              <input class="input-base" />
-
-              <BaseInput :items="['active', 'disabled']"/>
-            </div>
-            <BaseTable :loading="loader" :bordered="false" :borderless="true" />
-          </BaseCard>
-        </BaseOverlay>
       </div>
     </div>
   </div>
@@ -168,17 +105,15 @@ import BaseOverlay from "../../../components/partials/_overlay.vue";
 import BaseButton from "../../../components/forms/_button.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
 import BaseChart from "../../../components/chart/_baseChart.vue";
-import BaseTable from "../../../components/layouts/_table.vue";
-import BaseInput from "../../../components/forms/_select.vue";
+// import BaseTable from "../../../components/layouts/_table.vue";
+// import BaseInput from "../../../components/forms/_select.vue";
 export default {
   name: "Dashboard",
   components: {
     BaseButton,
     BaseCard,
     BaseChart,
-    BaseTable,
     BaseOverlay,
-    BaseInput
   },
   data() {
     return {
@@ -264,27 +199,27 @@ export default {
     };
   },
 
-  async mounted() {
-    this.loader = true;
-    try {
-      const overview = await this.$CustomerService.getOverview();
-      const customers = await this.$CustomerService.customers();
-      this.customers = customers.data.items.map((customer) => {
-        return {
-          name: customer.first_name + " " + customer.last_name,
-          email: customer.email,
-          phone: customer.phone,
-          address: customer.address,
-        };
-      });
-      this.details = overview.data;
-      return;
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.loader = false;
-    }
-  },
+  // async mounted() {
+  //   this.loader = true;
+  //   try {
+  //     const overview = await this.$CustomerService.getOverview();
+  //     const customers = await this.$CustomerService.customers();
+  //     this.customers = customers.data.items.map((customer) => {
+  //       return {
+  //         name: customer.first_name + " " + customer.last_name,
+  //         email: customer.email,
+  //         phone: customer.phone,
+  //         address: customer.address,
+  //       };
+  //     });
+  //     this.details = overview.data;
+  //     return;
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     this.loader = false;
+  //   }
+  // },
 };
 </script>
 

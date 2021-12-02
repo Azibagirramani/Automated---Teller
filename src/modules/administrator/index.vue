@@ -29,7 +29,7 @@
             <md-icon>dashboard</md-icon>
             <span class="md-list-item-text">Overview</span>
           </md-list-item>
-          <md-list-item to="/portal">
+          <md-list-item to="/portal/customers">
             <md-icon>people</md-icon>
             <span class="md-list-item-text">Customers</span>
           </md-list-item>

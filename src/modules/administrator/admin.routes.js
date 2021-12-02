@@ -17,6 +17,11 @@ const routes = [
         component: () => import("./admin-pages/dashboard.vue"),
       },
       {
+        path: "customers",
+        name: "customers",
+        component: () => import("./admin-pages/customers.vue"),
+      },
+      {
         path: "data-sync",
         name: "Data Syncronization",
         component: () => import("./admin-pages/sync.vue"),

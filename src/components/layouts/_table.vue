@@ -17,13 +17,13 @@
 export default {
   data(){
     return {
-      fields: [
-        { label: "First Name", field: "first_name", sortable: true },
-        { label: "Last Name", field: "last_name", sortable: true },
-        { label: "Status", field: "status", sortable: true },
-        { label: "Address", field: "address", sortable: true },
-        { label: "Status", field: "status", sortable: true },
-      ],
+      // fields: [
+      //   { label: "First Name", field: "first_name", sortable: true },
+      //   { label: "Last Name", field: "last_name", sortable: true },
+      //   { label: "Status", field: "status", sortable: true },
+      //   { label: "Address", field: "address", sortable: true },
+      //   { label: "Status", field: "status", sortable: true },
+      // ],
     }
   },
   props: {
@@ -40,6 +40,11 @@ export default {
         { age: 89, first_name: "Geneva", last_name: "Wilson", status: "active" },
         { age: 38, first_name: "Jami", last_name: "Carney", status: "active" },
       ],
+    },
+    fields: {
+      type: Array,
+      required: [false, "The fields prop is not required."],
+      default: () => [],
     },
     bordered: {
       type: Boolean,

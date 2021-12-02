@@ -264,6 +264,10 @@ export default {
       console.log("startLocalWithQuickbooks");
     },
 
+    fullSync() {
+      this.isStart = true;
+      console.log("fullSync");
+    },
     //sse function
     eventData(e) {
       let newArray = [];
@@ -319,6 +323,12 @@ export default {
             this.startLocalWithPaystack();
             break;
           case "Quickbooks":
+            this.startLocalWithQuickbooks();
+            break;
+          case "full":
+            this.startSynchronization();
+            break;
+          case "History":
             this.startLocalWithQuickbooks();
             break;
           default:
