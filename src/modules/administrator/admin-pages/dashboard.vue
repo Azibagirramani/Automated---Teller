@@ -14,7 +14,7 @@
 
       <div class="mt-5">
         <div class="row w-100">
-          <div class="col p-0">
+          <div class="col">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -22,7 +22,7 @@
               </div>
             </BaseCard>
           </div>
-          <div class="col p-0">
+          <div class="col">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -30,7 +30,7 @@
               </div>
             </BaseCard>
           </div>
-          <div class="col p-0">
+          <div class="col">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -38,7 +38,7 @@
               </div>
             </BaseCard>
           </div>
-          <div class="col p-0">
+          <div class="col">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import BaseOverlay from "../../../components/partials/_overlay.vue";
+// import BaseOverlay from "../../../components/partials/_overlay.vue";
 import BaseButton from "../../../components/forms/_button.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
 import BaseChart from "../../../components/chart/_baseChart.vue";
@@ -93,7 +93,6 @@ export default {
     BaseButton,
     BaseCard,
     BaseChart,
-    BaseOverlay,
   },
   data() {
     return {
