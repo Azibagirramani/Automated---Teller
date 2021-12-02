@@ -1,11 +1,13 @@
 import Axios from "axios";
 
-export const productionUrl = "https://dotmac-fastapi-backend.herokuapp.com/";
+const production = "https://dotmac-fastapi-backend.herokuapp.com/"
 
-export const developmentUrl = "localhost"
+export const productionUrl = production;
+
+export const developmentUrl = "http://127.0.0.1:8000"
 
 const instance = Axios.create({
-  baseURL: productionUrl,
+  baseURL: developmentUrl,
 });
 
 export default instance;

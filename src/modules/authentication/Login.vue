@@ -17,32 +17,39 @@
               <h1 class="text-uppercase">login</h1>
             </div>
             <div class="card-body px-5">
-              <div class="mb-5">
-                <BaseInput
-                  :type="'email'"
-                  v-model="form.email"
-                  :name="'Email'"
-                  :label="'Email'"
-                  :icon="'mail'"
-                />
-              </div>
+              <ValidationObserver v-slot="{ invalid }">
+                <form @submit.prevent="authenticate(form)">
+                  <div class="mb-5">
+                    <BaseInput
+                      :type="'email'"
+                      v-model="form.email"
+                      :name="'Email'"
+                      :label="'Email'"
+                      :icon="'mail'"
+                    />
+                  </div>
 
-              <div class="">
-                <BaseInput
-                  :type="'password'"
-                  v-model="form.password"
-                  :name="'Password'"
-                  :label="'Password'"
-                />
-              </div>
-
-              <p class="text-uppercase text-center mt-4">
-                Forgot your password
-              </p>
-            </div>
-            <div class="card-footer border-0 mt-4">
-              <button class="w-100 btn">help and support</button>
-              <button class="w-100 btn" @click="authenticate">sign in</button>
+                  <div class="">
+                    <BaseInput
+                      :type="'password'"
+                      v-model="form.password"
+                      :name="'Password'"
+                      :label="'Password'"
+                    />
+                  </div>
+                  <p class="text-uppercase text-center mt-4">
+                    Forgot your password
+                  </p>
+                  <div class="card-footer border-0 mt-4">
+                    <button class="w-100 btn" type="button">
+                      help and support
+                    </button>
+                    <button class="w-100 btn" type="submit" :disabled="invalid">
+                      sign in
+                    </button>
+                  </div>
+                </form>
+              </ValidationObserver>
             </div>
           </div>
         </div>
@@ -53,6 +60,8 @@
 </template>
 
 <script>
+import { ValidationObserver } from "vee-validate";
+
 import BaseToast from "../../components/partials/_toast.vue";
 import BaseInput from "../../components/forms/_input.vue";
 import BaseOverlay from "../../components/partials/_overlay.vue";
@@ -74,16 +83,31 @@ export default {
   },
 
   methods: {
-    async authenticate() {
+    async authenticate(data) {
       this.loader = true;
       try {
-        const response = await this.$AuthService.login(this.form);
-        console.log(response);
+        const response = await this.$AuthService.login(data);
+        this.$LocalStorage.set("token", response.data.tokens);
+        this.$store.dispatch("setUser", response.data.user);
+        return;
       } catch (error) {
-        this.msg = error;
+        this.msg = error.response.data.detail;
         this.showSnackbar = true;
       } finally {
         this.loader = false;
+      }
+    },
+  },
+
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuth;
+    },
+  },
+  watch: {
+    isAuthenticated() {
+      if (this.isAuthenticated) {
+        this.$router.push("/portal");
       }
     },
   },

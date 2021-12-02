@@ -1,6 +1,6 @@
 <template>
   <div id="dasboard">
-    <div class="w-100">
+    <div class="w-100 px-5">
       <div class="d-flex justify-content-between align-items-center mt-5">
         <h4>Dotmac Technologies</h4>
         <div class="d-flex align-items-center gap-4">
@@ -14,9 +14,7 @@
 
       <div class="mt-5">
         <div class="row w-100">
-          <div
-            class="col p-0"
-          >
+          <div class="col p-0">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -24,9 +22,7 @@
               </div>
             </BaseCard>
           </div>
-          <div
-            class="col p-0"
-          >
+          <div class="col p-0">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -34,9 +30,7 @@
               </div>
             </BaseCard>
           </div>
-          <div
-            class="col p-0"
-          >
+          <div class="col p-0">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -44,9 +38,7 @@
               </div>
             </BaseCard>
           </div>
-          <div
-            class="col p-0"
-          >
+          <div class="col p-0">
             <BaseCard :baseExClass="'md-elevation-0'">
               <div class="d-flex flex-column align-items-center">
                 <p>Customers</p>
@@ -56,33 +48,58 @@
           </div>
         </div>
       </div>
-
       <div class="mt-5 p-0">
-        <BaseChart :height="'320rem'" :series="series" :options="options" />
-      </div>
-
-      <div class="mt-5">
-        <BaseTable />
+        <BaseCard
+          :baseExClass="'border-0 shadow-sm'"
+          :header="true"
+          :exHeader="'border-0'"
+        >
+          <template slot="header">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="fw-bold">Recent Activites</h6>
+              <div class="d-flex align-items-center gap-4">
+                <button class="btn badge--rounded">day</button>
+                <button class="btn badge--rounded">week</button>
+                <button class="btn badge--rounded">month</button>
+                <button class="btn badge--rounded">year</button>
+              </div>
+            </div>
+          </template>
+          <div class="row">
+            <div class="col-md-12">
+              <BaseChart
+                :height="'200rem'"
+                :series="series"
+                :options="options"
+              />
+            </div>
+          </div>
+        </BaseCard>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import BaseOverlay from "../../../components/partials/_overlay.vue";
 import BaseButton from "../../../components/forms/_button.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
 import BaseChart from "../../../components/chart/_baseChart.vue";
-import BaseTable from "../../../components/layouts/_table.vue";
+// import BaseTable from "../../../components/layouts/_table.vue";
+// import BaseInput from "../../../components/forms/_select.vue";
 export default {
   name: "Dashboard",
   components: {
     BaseButton,
     BaseCard,
     BaseChart,
-    BaseTable,
+    BaseOverlay,
   },
   data() {
     return {
+      details: {},
+      customers: [],
+      loader: false,
       series: [
         {
           name: "series1",
@@ -97,12 +114,18 @@ export default {
           data: [11, 32, 45, 32, 34, 52, 201],
         },
       ],
+      tableData: [
+        {
+          name: "John Doe",
+          age: "30",
+        },
+      ],
       options: {
         legend: {
           show: false,
         },
         chart: {
-          type: "area",
+          type: "line",
           toolbar: {
             show: false,
           },
@@ -111,12 +134,20 @@ export default {
           enabled: false,
         },
         stroke: {
-          curve: "smooth",
+          curve: "straight",
         },
         xaxis: {
-          labels: {
-            show: false,
-          },
+          categories: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+          ],
           axisBorder: {
             show: false,
           },
@@ -124,26 +155,75 @@ export default {
         grid: {
           yaxis: {
             lines: {
-              show: false,
+              show: true,
             },
           },
           xaxis: {
             lines: {
-              show: true,
+              show: false,
             },
           },
         },
         yaxis: {
           labels: {
-            show: false,
+            show: true,
           },
           axisBorder: {
-            show: false,
+            labels: {
+              show: true,
+            },
           },
         },
         colors: ["#1a814c", "#58b77d", "#d3fadf"],
       },
     };
   },
+
+  // async mounted() {
+  //   this.loader = true;
+  //   try {
+  //     const overview = await this.$CustomerService.getOverview();
+  //     const customers = await this.$CustomerService.customers();
+  //     this.customers = customers.data.items.map((customer) => {
+  //       return {
+  //         name: customer.first_name + " " + customer.last_name,
+  //         email: customer.email,
+  //         phone: customer.phone,
+  //         address: customer.address,
+  //       };
+  //     });
+  //     this.details = overview.data;
+  //     return;
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     this.loader = false;
+  //   }
+  // },
 };
 </script>
+
+<style lang="scss" scoped>
+.badge--rounded {
+  border-radius: 5% !important;
+  outline: #b9bdc3 solid 1px;
+  text-transform: capitalize;
+  padding: 0.2rem 1rem;
+  transition: 500ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    outline: #1a814c solid 1px;
+    color: #1a814c;
+  }
+}
+
+.fs-5 {
+  font-size: 0.9rem !important;
+  color: grey;
+}
+
+.input-base {
+  outline: none !important;
+}
+</style>

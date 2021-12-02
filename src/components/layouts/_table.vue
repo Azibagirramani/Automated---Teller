@@ -1,71 +1,78 @@
 <template>
-  <md-table v-model="items" md-sort="name" class="border-0" md-sort-order="asc">
-    <md-table-row slot="md-table-row" slot-scope="{ item }">
-      <md-table-cell md-label="Name" md-sort-by="name">{{
-        item.name
-      }}</md-table-cell>
-      <md-table-cell md-label="Email" md-sort-by="email">{{
-        item.email
-      }}</md-table-cell>
-      <md-table-cell md-label="Phone" md-sort-by="gender">{{
-        item.Phone
-      }}</md-table-cell>
-      <md-table-cell md-label="Address" md-sort-by="title">{{
-        item.Address
-      }}</md-table-cell>
-    </md-table-row>
-  </md-table>
+  <b-table
+    :bordered="bordered"
+    :borderless="borderless"
+    :outlined="outlined"
+    :small="small"
+    :hover="hover"
+    :fields="fields"
+    :items="items"
+    responsive="sm"
+    :busy="loading"
+  >
+  </b-table>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
+  data(){
+    return {
+      // fields: [
+      //   { label: "First Name", field: "first_name", sortable: true },
+      //   { label: "Last Name", field: "last_name", sortable: true },
+      //   { label: "Status", field: "status", sortable: true },
+      //   { label: "Address", field: "address", sortable: true },
+      //   { label: "Status", field: "status", sortable: true },
+      // ],
+    }
   },
   props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
     items: {
       type: Array,
-      required: [false, "The items prop is required."],
+      required: [false, "The items prop is not required."],
       default: () => [
-        {
-          name: "Shawna Dubbin",
-          email: "sdubbin0@geocities.com",
-          Phone: "Male",
-          Address: "Assistant Media Planner",
-        },
-        {
-          name: "Shawna Dubbin",
-          email: "sdubbin0@geocities.com",
-          Phone: "Male",
-          Address: "Assistant Media Planner",
-        },
-        {
-          name: "Shawna Dubbin",
-          email: "sdubbin0@geocities.com",
-          Phone: "Male",
-          Address: "Assistant Media Planner",
-        },
-        {
-          name: "Shawna Dubbin",
-          email: "sdubbin0@geocities.com",
-          Phone: "Male",
-          Address: "Assistant Media Planner",
-        },
-        {
-          name: "Shawna Dubbin",
-          email: "sdubbin0@geocities.com",
-          Phone: "Male",
-          Address: "Assistant Media Planner",
-        },
+        { age: 40, first_name: "Dickerson", last_name: "Macdonald", status: "active"},
+        { age: 21, first_name: "Larsen", last_name: "Shaw", status: "active" },
+        { age: 89, first_name: "Geneva", last_name: "Wilson", status: "active" },
+        { age: 38, first_name: "Jami", last_name: "Carney", status: "active" },
       ],
+    },
+    fields: {
+      type: Array,
+      required: [false, "The fields prop is not required."],
+      default: () => [],
+    },
+    bordered: {
+      type: Boolean,
+      required: [false, "The bordered prop is not required."],
+      default: false,
+    },
+    borderless: {
+      type: Boolean,
+      required: [false, "The borderless prop is not required."],
+      default: false,
+    },
+    outlined: {
+      type: Boolean,
+      required: [false, "The outlined prop is not required."],
+      default: false,
+    },
+    small: {
+      type: Boolean,
+      required: [false, "The small prop is not required."],
+      default: false,
+    },
+    hover: {
+      type: Boolean,
+      required: [false, "The hover prop is not required."],
+      default: false,
     },
   },
 };
 </script>
 
-<style langg="scss" scoped>
-.md-table-head {
-  border: none !important;
-}
-
-</style>
+<style></style>

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <select class="form-control form-control-sm" id="accounts">
+    <select class="form-control form-control-sm text-capitalize" id="accounts">
       <option v-for="(item, index) in items" :key="index" :value="items">
         {{ item }}
       </option>

@@ -15,7 +15,7 @@ export default {
   props: {
     label: {
       type: String,
-      default: "Checking for new data",
+      default: "",
     },
     position: {
       type: String,
@@ -23,7 +23,7 @@ export default {
     },
     duration: {
       type: Number,
-      default: 3000,
+      default: 5000,
       required: false,
     },
     isInfinity: {
@@ -33,11 +33,23 @@ export default {
     },
     showSnackbar: {
       type: Boolean,
-      default: true,
+      default: function () {
+        return this.label !== "" ? true : false;
+      },
       required: false,
     },
   },
-};
-</script>
+  watch: {
+    label: {
+      handler(val){
+        console.log(val);
+        this.showSnackbar = true;
 
-<style></style>
+        setTimeout(() => {
+          this.showSnackbar = false;
+        }, this.duration);
+    },
+  },
+  },
+}
+</script>

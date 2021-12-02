@@ -9,7 +9,8 @@
         >
           <md-icon class="text-white">menu</md-icon>
         </md-button>
-        <span class="text-white md-title">Current Section</span>
+        <span class="text-white md-title">{{ this.$route.name }}</span>
+
       </md-app-toolbar>
 
       <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
@@ -28,7 +29,7 @@
             <md-icon>dashboard</md-icon>
             <span class="md-list-item-text">Overview</span>
           </md-list-item>
-          <md-list-item to="/portal">
+          <md-list-item to="/portal/customers">
             <md-icon>people</md-icon>
             <span class="md-list-item-text">Customers</span>
           </md-list-item>
@@ -43,7 +44,7 @@
         </md-list>
       </md-app-drawer>
 
-      <md-app-content class="">
+      <md-app-content class="bg-base">
         <router-view></router-view>
       </md-app-content>
     </md-app>
@@ -79,6 +80,9 @@ $default-color: #1a814c;
 // light hover color
 $hover-light-color: #1a814c;
 
+.bg-base {
+  background-color: #FDFDFD !important;
+}
 
 .md-app {
   min-height: 100vh;
@@ -91,7 +95,6 @@ $hover-light-color: #1a814c;
 }
 
 .md-list-item {
-
   i {
     color: $default-color !important;
   }

@@ -30,6 +30,21 @@ export default {
           },
           type: "line",
           width: "100%",
+          height: "100%",
+        },
+        markers: {
+          size: 2,
+          colors: ["#fff"],
+        },
+        tooltip: {
+          enabled: false,
+          theme: false,
+          y: {
+            formatter: undefined,
+            title: {
+              formatter: (seriesName) => seriesName,
+            },
+          },
         },
         grid: {
           show: false,
@@ -43,7 +58,13 @@ export default {
       type: Array,
       default: () => [
         {
-          data: [30, 40, 45, 50, 49, 60, 70, 91],
+          data: [1, 2, 3, 8, 10, 5, 4, 1],
+        },
+        {
+          data: [2, 1, 8, 1, 9, 7, 5, 3],
+        },
+        {
+          data: [9, 7, 5, 2, 8, 0, 8, 3],
         },
       ],
     },
