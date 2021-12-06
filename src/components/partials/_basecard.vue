@@ -62,7 +62,8 @@ export default {
 .card--hover {
   transition: all 500ms ease-in-out;
   cursor: pointer !important;
-  &:hover {
+  &:hover,
+  &:active {
     transform: translateY(-5px);
   }
 }

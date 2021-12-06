@@ -15,6 +15,4 @@ class Authenticate {
   }
 }
 
-
-
 export default Authenticate;

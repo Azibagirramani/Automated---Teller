@@ -41,15 +41,15 @@ export default {
   },
   watch: {
     label: {
-      handler(val){
+      handler(val) {
         console.log(val);
         this.showSnackbar = true;
 
         setTimeout(() => {
           this.showSnackbar = false;
         }, this.duration);
+      },
     },
   },
-  },
-}
+};
 </script>

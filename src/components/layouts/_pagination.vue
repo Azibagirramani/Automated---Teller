@@ -28,7 +28,7 @@ export default {
     },
     basExClass: {
       type: String,
-      default: '',
+      default: "",
     },
   },
 

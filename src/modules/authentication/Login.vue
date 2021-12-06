@@ -9,47 +9,43 @@
             <div class="card-header bg-transparent border-0 pt-5 px-5">
               <div class="d-flex justify-content-center">
                 <img
-                class="card-img-top"
-                src="../../assets/img/logo.jpg"
-                alt="Card image cap"
-              />
+                  class="card-img-top"
+                  src="../../assets/img/logo.jpg"
+                  alt="Card image cap"
+                />
               </div>
               <h1 class="text-uppercase">login</h1>
             </div>
             <div class="card-body px-5">
-              <ValidationObserver v-slot="{ invalid }">
-                <form @submit.prevent="authenticate(form)">
-                  <div class="mb-5">
-                    <BaseInput
-                      :type="'email'"
-                      v-model="form.email"
-                      :name="'Email'"
-                      :label="'Email'"
-                      :icon="'mail'"
-                    />
-                  </div>
+              <form @submit.prevent="authenticate(form)">
+                <div class="mb-5">
+                  <BaseInput
+                    :type="'email'"
+                    v-model="form.email"
+                    :name="'Email'"
+                    :label="'Email'"
+                    :icon="'mail'"
+                  />
+                </div>
 
-                  <div class="">
-                    <BaseInput
-                      :type="'password'"
-                      v-model="form.password"
-                      :name="'Password'"
-                      :label="'Password'"
-                    />
-                  </div>
-                  <p class="text-uppercase text-center mt-4">
-                    Forgot your password
-                  </p>
-                  <div class="card-footer border-0 mt-4">
-                    <button class="w-100 btn" type="button">
-                      help and support
-                    </button>
-                    <button class="w-100 btn" type="submit" :disabled="invalid">
-                      sign in
-                    </button>
-                  </div>
-                </form>
-              </ValidationObserver>
+                <div class="">
+                  <BaseInput
+                    :type="'password'"
+                    v-model="form.password"
+                    :name="'Password'"
+                    :label="'Password'"
+                  />
+                </div>
+                <p class="text-uppercase text-center mt-4">
+                  Forgot your password
+                </p>
+                <div class="card-footer border-0 mt-4">
+                  <button class="w-100 btn" type="button">
+                    help and support
+                  </button>
+                  <button class="w-100 btn" type="button" @click="authenticate">sign in</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -60,7 +56,6 @@
 </template>
 
 <script>
-
 import BaseToast from "../../components/partials/_toast.vue";
 import BaseInput from "../../components/forms/_input.vue";
 import BaseOverlay from "../../components/partials/_overlay.vue";
@@ -83,6 +78,7 @@ export default {
 
   methods: {
     async authenticate(data) {
+      this.$router.push("/portal");
       this.loader = true;
       try {
         const response = await this.$AuthService.login(data);

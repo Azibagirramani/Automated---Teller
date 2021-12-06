@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex align-items-center gap-2">
     <md-field>
-      <md-select v-model="country" name="country" id="country" md-dense>
-        <md-option v-for="(item, index) in items" :key="index" :value="items">
+      <md-select v-model="Ivalue" md-dense>
+        <md-option v-for="(item, index) in items" :key="index" :value="item">
           {{ item }}</md-option
         >
       </md-select>
@@ -13,6 +13,10 @@
 <script>
 export default {
   props: {
+    value: {
+      type: String,
+      default: "",
+    },
     label: {
       type: String,
       required: false,
@@ -26,7 +30,17 @@ export default {
       type: Array,
       required: false,
       default() {
-        return ["items"];
+        return [];
+      },
+    },
+  },
+  computed: {
+    Ivalue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
       },
     },
   },

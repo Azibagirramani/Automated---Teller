@@ -4,24 +4,24 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
-
 import "./plugins/numberFormatter";
 
+import "./plugins/moment";
+
 // materialize css
-import "./plugins/materialVue"
+import "./plugins/materialVue";
 
 // sse injection
-import "./plugins/ssePlugin"
+import "./plugins/ssePlugin";
 
 // Services injection
-import "./service/services.index"
+import "./service/services.index";
 
 // Apex chart injection
 import "./plugins/apexChart";
 
 import VueParticles from "vue-particles";
 Vue.use(VueParticles);
-
 
 // custom scss
 import "./sass/sass.index.scss";

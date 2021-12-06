@@ -8,7 +8,7 @@ export default new Vuex.Store({
     sync: {
       isSyncing: false,
       syncError: null,
-      syncSuccess: ""
+      syncSuccess: "",
     },
     user: {},
     isAuth: false,
@@ -32,7 +32,7 @@ export default new Vuex.Store({
     setSync({ commit }, payload) {
       let payloadObj = Object.assign(this.state.sync, payload);
       commit("setSync", payloadObj);
-    }
+    },
   },
   mutations: {
     setUser(state, payload) {

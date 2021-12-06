@@ -7,10 +7,44 @@
           :baseExClass="'border-0'"
           :exClass="'py-0'"
         >
-          <BaseTable :bordered="false" :borderless="true" :loading="loader"/>
+          <div class="table-content">
+            <BaseInput :placeholder="'Search.......'" v-model="searchKey" />
+            <BaseTable
+              :bordered="false"
+              :borderless="true"
+              :loading="loader"
+              :items="computedCustomers"
+              :fields="fields"
+              :currentPage="currentPage"
+              :perPage="perPage"
+              :outlined="false"
+              :small="false"
+              :hover="true"
+              :tableCaption="tableCaption"
+            />
+          </div>
 
-          <div class="d-flex justify-content-end py-2">
-            <BasePagination />
+          <div
+            class="
+              d-flex
+              gap-4
+              justify-content-end
+              py-2
+              mt-3
+              align-items-center
+            "
+          >
+            <div class="d-flex align-items-center gap-4">
+              <span>Per Page</span>
+              <BaseSelect :items="[5, 10]" v-model="perPage" />
+            </div>
+            <BasePagination
+              :totalItems="computedCustomers.length"
+              :currentPage="currentPage"
+              :perPage="perPage"
+              :basExClass="'mt-2'"
+              @page-changed="pageChanged"
+            />
           </div>
         </BaseCard>
 
@@ -19,7 +53,7 @@
             class="col"
             v-for="(items, index) in tableTypes"
             :key="index"
-            @click="updateTable(items)"
+            @click="query(items)"
           >
             <BaseCard
               :header="true"
@@ -44,47 +78,44 @@
         </div>
       </div>
       <div class="col-md-3">
-        <BaseCard>
+        <BaseCard :baseExClass="'border-0'">
           <div>
-            <md-list md-expand-single="true">
-              <md-subheader>Filters</md-subheader>
-              <md-list-item md-expand md-expanded.sync="true">
-                <span class="md-list-item-text">Status</span>
+            <h5>Filters</h5>
+            <div class="d-flex flex-column gap-0">
+              <!-- <BaseCheckbox v-model="check" /> -->
+              <div class="mt-2">
+                <p class="m-0">Status</p>
+                <BaseCheckbox
+                  v-model="queryparams.status"
+                  v-for="items in ['Active', 'Blocked', 'disabled']"
+                  :key="items.toString()"
+                  :label="items"
+                />
+              </div>
+              <div class="mt-2">
+                <p class="mb-2">Dates</p> {{ queryparams.add_date }}
+                <div class="d-flex flex-column">
+                  <BaseDatePicker
+                    v-model="queryparams.add_date"
+                    :label="'Date added'"
+                  />
+                  <BaseDatePicker
+                    v-model="queryparams.last_update"
+                    :label="'Last updated'"
+                  />
+                </div>
+              </div>
 
-                <md-list slot="md-expand">
-                  <md-list-item class="md-inset">
-                    <md-checkbox v-model="status" value="active" />
-                    <span class="md-list-item-text">Active</span>
-                  </md-list-item>
-                  <md-list-item class="md-inset">
-                    <md-checkbox v-model="status" value="disabled" />
-                    <span class="md-list-item-text">Disabled</span>
-                  </md-list-item>
-                  <md-list-item class="md-inset">
-                    <md-checkbox v-model="status" value="blocked" />
-                    <span class="md-list-item-text">blocked</span>
-                  </md-list-item>
-                </md-list>
-              </md-list-item>
-              <md-list-item md-expand md-expanded.sync="true">
-                <span class="md-list-item-text">Billing type</span>
-
-                <md-list slot="md-expand">
-                  <md-list-item class="md-inset">
-                    <md-checkbox v-model="status" value="active" />
-                    <span class="md-list-item-text">Active</span>
-                  </md-list-item>
-                  <md-list-item class="md-inset">
-                    <md-checkbox v-model="status" value="disabled" />
-                    <span class="md-list-item-text">Disabled</span>
-                  </md-list-item>
-                  <md-list-item class="md-inset">
-                    <md-checkbox v-model="status" value="blocked" />
-                    <span class="md-list-item-text">blocked</span>
-                  </md-list-item>
-                </md-list>
-              </md-list-item>
-            </md-list>
+              <div class="mt-2">
+                <p class="mb-2">Billing type</p>
+                <div class="d-flex flex-column">
+                  <BaseSelect
+                    :items="['Recurring', 'Prepaid monthly']"
+                    v-model="queryparams.billing_type"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </BaseCard>
       </div>
@@ -96,132 +127,60 @@
 import BaseTable from "../../../components/layouts/_table.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
 import BasePagination from "../../../components/layouts/_pagination.vue";
+import BaseCheckbox from "../../../components/forms/_checkbox.vue";
+import BaseInput from "../../../components/forms/_input.vue";
+import BaseDatePicker from "../../../components/forms/_datepicker.vue";
+import BaseSelect from "../../../components/forms/_select.vue";
 export default {
   components: {
     BaseCard,
     BaseTable,
     BasePagination,
+    BaseCheckbox,
+    BaseInput,
+    BaseDatePicker,
+    BaseSelect,
   },
   data() {
     return {
+      currentPage: 1,
+      queryparams: {},
+      selectedDate: null,
+      lastSeen: null,
       loader: false,
       tableTypes: [
         {
           title: "Customers",
           value: "2k",
+          set: 1,
         },
         {
           title: "New customers",
           value: "10",
+          set: 2,
         },
         {
           title: "Updated Customers",
           value: "10",
+          set: 3,
         },
         {
           title: "Deleted Customers",
           value: "0",
+          set: 4,
         },
       ],
       status: "active",
-      customers: [
-        {
-          first_name: "John",
-          last_name: "DoeD",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeV",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeS",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeE",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeW",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeC",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeZ",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeQ",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeWER",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeSCX",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeSWER",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "deleted",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeZSAQWER",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-        {
-          first_name: "John",
-          last_name: "DoeSAWERTY",
-          billing_type: "Credit Card",
-          phone: "1234567890",
-          status: "Active",
-        },
-      ],
       fields: [
         {
           key: "billing_type",
           label: "Bill Type",
           sortable: true,
+          formatter: (value) => {
+            return value
+              .replace(/^\w/, (c) => c.toUpperCase())
+              .replace(/_/g, " ");
+          },
         },
         {
           key: "first_name",
@@ -234,23 +193,20 @@ export default {
         {
           key: "phone",
           label: "Phone",
-          formatter: (items) => {
-            return items.split(",")[0];
-          },
         },
         {
           key: "status",
           label: "Status",
-        },
-        {
-          key: "actions",
+          sortable: true,
         },
       ],
       searchKey: "",
       modalContent: {},
-      currentPage: 1,
-      perPage: 5,
+      perPage: 10,
       totalItems: 0,
+      filtered: [],
+      customers: [],
+      tableCaption: "Customers",
     };
   },
 
@@ -277,21 +233,80 @@ export default {
       this.currentPage = page;
     },
 
-    updateTable(index){
-      console.log(index)
-      this.loader = true
-    }
+    async getAllCustomers() {
+      try {
+        this.loader = true;
+        let content = await this.$CustomerService.customers();
+        this.customers = content.data;
+      } catch (error) {
+        this.loader = false;
+        console.log(error);
+      } finally {
+        this.loader = false;
+      }
+    },
+
+    async queryMethod() {
+      try {
+        // const date = new Date();
+        let localQuery = {};
+        // const year = date.getFullYear();
+        // const month = date.getMonth() + 1;
+        // const day = date.getDate() - 1;
+        // const dateTime = `${year}-${month}-${day}`;
+        // this.queryparams.add_date = dateTime;
+
+        localQuery = {
+          ...this.queryparams,
+        };
+
+        // localQuery.add_date = dateTime;
+        let content = await this.$CustomerService.customerFilter(localQuery);
+        this.customers = content.data;
+        console.log(content);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loader = false;
+      }
+    },
+
+    async query(data = {}) {
+      this.loader = true;
+      this.tableCaption = data.title;
+      switch (data.set) {
+        case 1:
+          this.getAllCustomers();
+          break;
+
+        case 2:
+          this.queryMethod();
+          break;
+        default:
+          break;
+      }
+    },
+  },
+  watch: {
+    queryparams: {
+      handler() {
+        this.queryMethod();
+      },
+      deep: true,
+    },
   },
 
   async mounted() {
-    let content = await this.$CustomerService.customers();
-    this.customers = content.data.items;
-    console.log(this.customers);
+    await this.getAllCustomers();
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.table-content {
+  max-height: 40rem;
+}
+
 a {
   color: #000;
 

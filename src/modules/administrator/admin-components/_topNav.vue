@@ -71,7 +71,7 @@ nav {
 
   ul {
     padding-left: 5%;
-    li { 
+    li {
       a {
         font-size: 0.8rem;
         font-weight: 600;

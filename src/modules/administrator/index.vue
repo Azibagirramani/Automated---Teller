@@ -62,8 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 // li a colors
 $link-color: #bcbcbd;
 
@@ -92,7 +90,7 @@ $hover-light-color: #1a814c;
 
 .md-list-item {
   i {
-    color: #0E1635 !important;
+    color: #0e1635 !important;
   }
 
   .md-list-item-text {
@@ -101,11 +99,11 @@ $hover-light-color: #1a814c;
     font-weight: 600;
   }
   &:hover .md-list-item-text {
-    color: #0E1635 !important;
+    color: #0e1635 !important;
   }
   &:hover {
     background-color: $hover-color;
-    color: #0E1635 !important;
+    color: #0e1635 !important;
   }
 }
 </style>

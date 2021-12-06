@@ -6,7 +6,6 @@ import Customers from "./service.customers";
 
 import LocalStorage from "./service.localStorage";
 
-
 const authenticate = new Authenticate(Axois, Endpoints);
 
 const localStorage = new LocalStorage();

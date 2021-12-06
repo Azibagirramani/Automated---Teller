@@ -38,7 +38,7 @@ const routes = [
             query: { redirect: to.fullPath },
           });
         }
-        console.log(to, from)
+        console.log(to, from);
       } else {
         next();
       }
