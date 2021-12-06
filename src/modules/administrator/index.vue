@@ -1,13 +1,15 @@
 <template>
   <div class="page-container">
     <md-app md-waterfall md-mode="overlap">
-      <md-app-toolbar class="md-primary md-large">
+      <md-app-toolbar class="bg-primary md-large">
         <div class="md-toolbar-row">
           <md-button class="md-icon-button" @click="menuVisible = !menuVisible">
-            <md-icon>menu</md-icon>
+            <md-icon class="text-white">menu</md-icon>
           </md-button>
 
-          <span class="md-title text-uppercase">{{ this.$route.name }}</span>
+          <span class="md-title text-uppercase text-white">{{
+            this.$route.name
+          }}</span>
         </div>
       </md-app-toolbar>
 
@@ -18,7 +20,7 @@
 
         <md-list>
           <md-list-item to="/portal">
-            <md-icon>dashboard</md-icon>
+            <md-icon class="">dashboard</md-icon>
             <span class="md-list-item-text">Overview</span>
           </md-list-item>
           <md-list-item to="/portal/customers">
@@ -36,7 +38,7 @@
         </md-list>
       </md-app-drawer>
 
-      <md-app-content class="bg-base">
+      <md-app-content class="bg-base bg-dark">
         <router-view></router-view>
       </md-app-content>
     </md-app>
@@ -60,6 +62,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
 // li a colors
 $link-color: #bcbcbd;
 
@@ -73,7 +77,7 @@ $default-color: #1a814c;
 $hover-light-color: #1a814c;
 
 .bg-base {
-  background-color: #fdfdfd !important;
+  background-color: #f0f6f8 !important;
 }
 
 .md-app {
@@ -88,7 +92,7 @@ $hover-light-color: #1a814c;
 
 .md-list-item {
   i {
-    color: $default-color !important;
+    color: #0E1635 !important;
   }
 
   .md-list-item-text {
@@ -97,11 +101,11 @@ $hover-light-color: #1a814c;
     font-weight: 600;
   }
   &:hover .md-list-item-text {
-    color: $default-color !important;
+    color: #0E1635 !important;
   }
   &:hover {
     background-color: $hover-color;
-    color: $default-color !important;
+    color: #0E1635 !important;
   }
 }
 </style>

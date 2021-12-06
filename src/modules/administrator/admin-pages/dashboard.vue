@@ -1,149 +1,258 @@
 <template>
-  <div id="dasboard">
-    <div class="w-100">
-      <!-- <div class="d-flex justify-content-between align-items-center mt-5">
-        <h4>Dotmac Technologies</h4>
-        <div class="d-flex align-items-center gap-4">
-          <md-icon>settings</md-icon>
-          <BaseButton
-            :exClass="'bg-primary text-white fw-bold rounded'"
-            :label="'Syncronize data'"
-          />
-        </div>
-      </div> -->
-
-      <div class="p-0">
-        <BaseCard
-          :baseExClass="'border-0 shadow-sm'"
-          :header="true"
-          :exHeader="'border-0'"
-        >
-          <template slot="header">
-            <div class="d-flex justify-content-between align-items-center">
-              <h6 class="fw-bold">Recent Activites</h6>
-              <div class="d-flex align-items-center gap-4">
-                <button class="btn badge--rounded">day</button>
-                <button class="btn badge--rounded">week</button>
-                <button class="btn badge--rounded">month</button>
-                <button class="btn badge--rounded">year</button>
+  <div id="Dashboard">
+    <div class="row">
+      <div class="col-md-9">
+        <!-- top summary  -->
+        <div class="row">
+          <div class="col-md-4">
+            <BaseCard
+              :footer="true"
+              :baseExClass="'shadow border-0 bg-primary'"
+            >
+              <div>
+                <h5 class="text-white fw-lighter">Active Customers</h5>
+                <h1 class="text-white">{{ 75 }}</h1>
               </div>
-            </div>
-          </template>
-          <div class="row">
-            <div class="col-md-12">
-              <BaseChart
-                :height="'400rem'"
-                :series="series"
-                :options="options"
+              <template v-slot:footer>
+                <div class="">
+                  <a href="#" class="text-white">View all customers</a>
+                </div>
+              </template>
+            </BaseCard>
+          </div>
+          <div class="col-md-8">
+            <BaseCard
+              :baseExClass="'border-0 shadow-0'"
+              :exHeader="'border-0'"
+              :exFooter="'border-0 bg-transparent'"
+              :header="true"
+              :footer="true"
+            >
+              <template v-slot:header>
+                <h6 class="text-dark">Activites per day</h6>
+              </template>
+              <template v-slot:footer>
+                <div class="d-flex gap-3 align-items-center">
+                  <a href="#" class="text-dark">View all status</a>
+                  <b-icon
+                    icon="arrow-right"
+                    scale="1.5"
+                    variant="dark"
+                    class="mt-1"
+                  ></b-icon>
+                </div>
+              </template>
+              <div></div>
+            </BaseCard>
+          </div>
+        </div>
+
+        <!-- card content  -->
+        <div class="row mt-3">
+          <div class="col" v-for="items in summary" :key="items.toString()">
+            <BaseCard
+              :header="true"
+              :exHeader="'py-0 border-0 mt-2'"
+              :baseExClass="'border-0 shadow-0 py-0'"
+              :exClass="'py-0'"
+            >
+              <template v-slot:header>
+                <div class="d-flex justify-content-between">
+                  <p class="text-dark fw-base">{{ items.name }}</p>
+                  <p class="text-success fs--8">
+                    <b-icon icon="arrow-up"></b-icon> 20
+                  </p>
+                </div>
+              </template>
+              <h1 class="text-dark">{{ items.value }}</h1>
+            </BaseCard>
+          </div>
+        </div>
+
+        <!-- notification content -->
+        <div class="mt-3">
+          <BaseCard :baseExClass="'border-2 rounded-3'">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center gap-3 ml-5">
+                <b-icon icon="bell" variant="dark" font-scale="2"></b-icon>
+                <div class="d-flex flex-column">
+                  <p class="m-0 p-0 fw-bold">No alerts set</p>
+                  <p class="m-0 p-0 fs-5">
+                    Get notified when data synchronization starts and finishes
+                  </p>
+                </div>
+              </div>
+              <BaseButton
+                :label="'Set alert'"
+                :type="'button'"
+                :exClass="'border-2'"
               />
             </div>
+          </BaseCard>
+        </div>
+
+        <!-- database and device summary -->
+        <div class="mt-3">
+          <div class="row">
+            <div class="col">
+              <BaseCard
+                :header="true"
+                :baseExClass="'border-0 p-0'"
+                :exHeader="'border-0'"
+                :exClass="'p-0'"
+              >
+                <template v-slot:header>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h6 class="text-dark">Databases</h6>
+                  </div>
+                </template>
+                <md-list>
+                  <md-list-item class="m-0 p-0">
+                    <span class="md-list-item-text">Customers</span>
+
+                    <md-button class="md-icon-button md-list-action">
+                      2k
+                    </md-button>
+                  </md-list-item>
+                  <md-list-item>
+                    <span class="md-list-item-text">Sales Receipts</span>
+
+                    <md-button class="md-icon-button md-list-action">
+                      5k
+                    </md-button>
+                  </md-list-item>
+                  <md-list-item>
+                    <span class="md-list-item-text">Backup storage</span>
+
+                    <md-button class="md-icon-button md-list-action">
+                      10k
+                    </md-button>
+                  </md-list-item>
+                </md-list>
+              </BaseCard>
+            </div>
+            <div class="col">
+              <BaseCard
+                :header="true"
+                :baseExClass="'border-0'"
+                :exHeader="'border-0'"
+              >
+                <template v-slot:header>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h6 class="text-dark">Networking</h6>
+                  </div>
+                </template>
+                <div class="text-center">
+                  <h2>No Network</h2>
+                </div>
+              </BaseCard>
+            </div>
+            <div class="col">
+              <BaseCard
+                :header="true"
+                :baseExClass="'border-0'"
+                :exHeader="'border-0'"
+              >
+                <template v-slot:header>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <h6 class="text-dark">Device</h6>
+                  </div>
+                  <div class="text-center">
+                    <h2>No Devices</h2>
+                  </div>
+                </template>
+              </BaseCard>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <BaseCard :baseExClass="'border-0'">
+          <md-list>
+            <md-subheader class="fw-bold text-dark"
+              >Recent Activities</md-subheader
+            >
+            <md-list-item>
+              <span class="md-list-item-text">/usr/bin</span>
+            </md-list-item>
+            <md-list-item>
+              <span class="md-list-item-text">/usr/bin</span>
+            </md-list-item>
+            <md-list-item>
+              <span class="md-list-item-text">/usr/bin</span>
+            </md-list-item>
+            <md-list-item>
+              <span class="md-list-item-text">/usr/bin</span>
+            </md-list-item>
+            <md-list-item>
+              <span class="md-list-item-text">/usr/bin</span>
+            </md-list-item>
+          </md-list>
+          <BaseCard
+            :baseExClass="'border-0 shadow bg-warning'"
+            :exHeader="'border-0'"
+            :header="true"
+          >
+            <template v-slot:header>
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="text-white fs-6 fw-bold text-capitalize">
+                  More stats
+                </h5>
+                <md-button class="md-icon-button md-primary">
+                  <md-icon class="text-white">arrow_forward_ios</md-icon>
+                </md-button>
+              </div>
+            </template>
+            <div class="p-0 text-white">
+              <p class="m-0">More stats</p>
+              <h3>42k</h3>
+              <p class="m-0 pt-3">More stats</p>
+              <h3>42k</h3>
+            </div>
+          </BaseCard>
         </BaseCard>
       </div>
-      <div class="px-0">
-        <div class="row w-100">
-          <div class="col p-0">
-            <BaseCard :baseExClass="'shadow-0  border-0 border-primary'">
-              <div class="d-flex flex-column align-items-center">
-                <p class="fs-4 fw-bold">100,00.0</p>
-                <p>Customers</p>
-              </div>
-            </BaseCard>
-          </div>
-          <div class="col p-0">
-            <BaseCard :baseExClass="'shadow-0  border-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p class="fs-4 fw-bold">100,00.0</p>
-                <p>Syncs</p>
-              </div>
-            </BaseCard>
-          </div>
-          <div class="col p-0">
-            <BaseCard :baseExClass="'shadow-0  border-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p class="fs-4 fw-bold">100,00.0</p>
-                <p>Activities</p>
-              </div>
-            </BaseCard>
-          </div>
-          <div class="col p-0">
-            <BaseCard :baseExClass="'shadow-0  border-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p class="fs-4 fw-bold">100,00.0</p>
-                <p>Databases</p>
-              </div>
-            </BaseCard>
-          </div>
-          <div class="col p-0">
-            <BaseCard :baseExClass="'shadow-0 border-0'">
-              <div class="d-flex flex-column align-items-center">
-                <p class="fs-4 fw-bold">100,00.0</p>
-                <p>Sales Receipts</p>
-              </div>
-            </BaseCard>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row px-2 mt-5">
-      <BaseCard :baseExClass="'border-0 shadow-sm'">
-        <div class="row">
-          <div class="col">
-            <BaseCard
-              :header="true"
-              :baseExClass="'border-0 m-0 p-0'"
-              :exHeader="'border-0'"
-            >
-              <template v-slot:header>
-                <div class="d-flex justify-content-between">
-                  <h6 class="text-uppercase text-primary fw-bold">
-                    New Customers
-                  </h6>
-                  <p class="text-uppercase text-primary fw-bold">500 total</p>
-                </div>
-              </template>
-              <BaseChart :series="series2" :options="options" />
-            </BaseCard>
-          </div>
-          <div class="col">
-            <BaseCard
-              :header="true"
-              :baseExClass="'border-0 m-0 p-0'"
-              :exHeader="'border-0'"
-            >
-              <template v-slot:header>
-                <div class="d-flex justify-content-between">
-                  <h6 class="text-uppercase text-primary fw-bold">
-                    Sales Receipts
-                  </h6>
-                  <p class="text-uppercase text-primary fw-bold">500 total</p>
-                </div>
-              </template>
-              <BaseChart :series="series2" :options="options" />
-            </BaseCard>
-          </div>
-        </div>
-      </BaseCard>
     </div>
   </div>
 </template>
 
 <script>
-// import BaseOverlay from "../../../components/partials/_overlay.vue";
-// import BaseButton from "../../../components/forms/_button.vue";
+// import BaseState from "../../../components/partials/_empty.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
-import BaseChart from "../../../components/chart/_baseChart.vue";
-// import BaseTable from "../../../components/layouts/_table.vue";
-// import BaseInput from "../../../components/forms/_select.vue";
+import BaseButton from "../../../components/forms/_button.vue";
 export default {
   name: "Dashboard",
   components: {
-    // BaseButton,
     BaseCard,
-    BaseChart,
+    BaseButton,
+    // BaseState
   },
   data() {
     return {
+      summary: [
+        {
+          name: "Customers",
+          value: "2k",
+        },
+        {
+          name: "Transactions",
+          value: "8k",
+        },
+        {
+          name: "Activities",
+          value: "5k",
+        },
+        {
+          name: "Active Proccess",
+          value: "4",
+        },
+      ],
       details: {},
       customers: [],
       loader: false,
@@ -164,7 +273,10 @@ export default {
       series2: [
         {
           name: "series1",
-          data: [140, 40, 28, 51, 42, 109, 100],
+          data: [
+            140, 40, 28, 51, 42, 109, 100, 40, 28, 51, 42, 109, 100, 140, 40,
+            28, 51, 42, 109, 100, 40, 28, 51, 42, 109, 100,
+          ],
         },
       ],
       tableData: [
@@ -173,12 +285,12 @@ export default {
           age: "30",
         },
       ],
-      options: {
+      options2: {
         legend: {
           show: false,
         },
         chart: {
-          type: "line",
+          type: "bar",
           toolbar: {
             show: false,
           },
@@ -190,25 +302,21 @@ export default {
           curve: "straight",
         },
         xaxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-          ],
+          show: false,
+          labels: {
+            show: false,
+          },
           axisBorder: {
+            show: false,
+          },
+          axisTicks: {
             show: false,
           },
         },
         grid: {
           yaxis: {
             lines: {
-              show: true,
+              show: false,
             },
           },
           xaxis: {
@@ -219,15 +327,15 @@ export default {
         },
         yaxis: {
           labels: {
-            show: true,
+            show: false,
           },
           axisBorder: {
             labels: {
-              show: true,
+              show: false,
             },
           },
         },
-        colors: ["#1a814c", "#58b77d", "#d3fadf"],
+        colors: ["black", "#58b77d", "#d3fadf"],
       },
     };
   },

@@ -13,6 +13,8 @@
       :per-page="perPage"
       :busy="loading"
       :foot-clone="footClone"
+      caption-top
+      show-empty
     >
       <template #cell(actions)="data">
         <div class="d-flex justify-content-center align-items-center">
@@ -30,16 +32,45 @@
           </md-button>
         </div>
       </template>
+
+      <!-- remove action header -->
+      <template #head(actions)>
+        <span></span>
+      </template>
+
+      <template #table-caption>{{ tableCaption }}</template>
+      <template #empty>
+        <BaseState
+          :description="''"
+          :label="'No data'"
+          :icons="'hourglass_disabled'"
+        />
+      </template>
+      <template #table-busy>
+        <div class="text-center text-danger my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
     </b-table>
   </div>
 </template>
 
 <script>
+import BaseState from "../../components/partials/_empty.vue";
 export default {
+  components: {
+    BaseState,
+  },
   data() {
     return {};
   },
   props: {
+    tableCaption: {
+      type: String,
+      default: "",
+      required: false,
+    },
     footClone: {
       type: Boolean,
       default: false,
@@ -51,22 +82,7 @@ export default {
     items: {
       type: Array,
       required: [false, "The items prop is not required."],
-      default: () => [
-        {
-          age: 40,
-          first_name: "Dickerson",
-          last_name: "Macdonald",
-          status: "active",
-        },
-        { age: 21, first_name: "Larsen", last_name: "Shaw", status: "active" },
-        {
-          age: 89,
-          first_name: "Geneva",
-          last_name: "Wilson",
-          status: "active",
-        },
-        { age: 38, first_name: "Jami", last_name: "Carney", status: "active" },
-      ],
+      default: () => [],
     },
     fields: {
       type: Array,

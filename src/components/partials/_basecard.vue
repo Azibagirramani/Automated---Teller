@@ -1,10 +1,14 @@
 <template>
-<div class="card flex-fil" :class="baseExClass">
+  <div class="card flex-fil" :class="baseExClass">
     <div class="card-header bg-transparent" :class="exHeader" v-if="header">
       <slot name="header"></slot>
     </div>
     <div class="card-body" :class="exClass">
       <slot></slot>
+    </div>
+
+    <div class="card-footer" :class="exFooter" v-if="footer">
+      <slot name="footer"></slot>
     </div>
   </div>
 </template>
@@ -12,10 +16,18 @@
 <script>
 export default {
   props: {
-    actions:{
+    footer: {
       type: Boolean,
       default: false,
-      required: false
+    },
+    exFooter: {
+      type: String,
+      default: "bg-transparent",
+    },
+    actions: {
+      type: Boolean,
+      default: false,
+      required: false,
     },
     withHover: {
       type: Boolean,
@@ -51,7 +63,11 @@ export default {
   transition: all 500ms ease-in-out;
   cursor: pointer !important;
   &:hover {
-    outline: 0.1rem solid $primary-color !important;
+    transform: translateY(-5px);
   }
+}
+
+.card--start {
+  border-left: 0.2rem solid $secondary-color !important;
 }
 </style>

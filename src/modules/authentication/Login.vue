@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import { ValidationObserver } from "vee-validate";
 
 import BaseToast from "../../components/partials/_toast.vue";
 import BaseInput from "../../components/forms/_input.vue";

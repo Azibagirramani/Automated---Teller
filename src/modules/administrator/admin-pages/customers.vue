@@ -1,98 +1,129 @@
 <template>
-  <BaseCard>
-    <div class="px-4">
-      <div class="d-flex justify-content-end">
-        <md-button class="md-fab md-plain bg-white">
-          <md-icon class="text-dark">edit</md-icon>
-        </md-button>
-      </div>
+  <div class="">
+    <div class="row">
+      <div class="col-md-9">
+        <BaseCard
+          :exHeader="'border-0 py-0 pt-3'"
+          :baseExClass="'border-0'"
+          :exClass="'py-0'"
+        >
+          <BaseTable :bordered="false" :borderless="true" :loading="loader"/>
 
-      <b-tabs>
-        <b-tab active>
-          <template #title> All customers </template>
-          <div class="mt-4">
-            <BaseInput
-              v-model="searchKey"
-              :type="'text'"
-              :placeholder="'Search for customer...'"
-            />
-            <BaseTable
-              :hover="false"
-              :items="computedCustomers"
-              :fields="fields"
-              :currentPage="currentPage"
-              :perPage="perPage"
-              :bordered="true"
-              :striped="true"
-              :outlined="true"
-              :small="false"
-              @row-selected="rowSelected"
-            />
-            <div class="d-flex justify-content-end gap-4 align-items-center">
-              <BaseSelect :label="'Per Page'" :items="['5', '10']" />
-              <BasePagination
-                :basExClass="'mt-2'"
-                :currentPage="currentPage"
-                :perPage="perPage"
-                :totalItems="computedCustomers.length"
-                @page-changed="pageChanged"
-              />
-            </div>
+          <div class="d-flex justify-content-end py-2">
+            <BasePagination />
           </div>
-        </b-tab>
+        </BaseCard>
 
-        <b-tab>
-          <template #title> New customers </template>
-          <p class="p-3">Tab contents 2</p>
-        </b-tab>
+        <div class="row mt-3">
+          <div
+            class="col"
+            v-for="(items, index) in tableTypes"
+            :key="index"
+            @click="updateTable(items)"
+          >
+            <BaseCard
+              :header="true"
+              :exHeader="'border-0 '"
+              :baseExClass="
+                index == 1
+                  ? 'bg-dark text-white  border-0 card--hover'
+                  : ' border-0 card--hover shadow'
+              "
+            >
+              <template v-slot:header>
+                <h6>{{ items.title }}</h6>
+              </template>
 
-        <b-tab>
-          <template #title> Updated customers </template>
-          <p class="p-3">Tab contents 2</p>
-        </b-tab>
-
-        <b-tab>
-          <template #title> Deleted customers </template>
-          <p class="p-3">Tab contents 2</p>
-        </b-tab>
-      </b-tabs>
-    </div>
-    <BaseModal ref="basemodal">
-      <div class="">
-        <h2 class="text-primary text-uppercase">
-          {{ computedFullName }}
-        </h2>
-        <div class="d-flex justify-content-between mt-5">
-          <div>
-            <p><b>Email:</b> {{ modalContent.email }}</p>
-            <p><b>Phone:</b> {{ modalContent.phone }}</p>
-            <p><b>Address:</b> {{ modalContent.status }}</p>
+              <div>
+                <h3 :class="index == 1 ? 'text-white' : ''">
+                  {{ items.value }}
+                </h3>
+              </div>
+            </BaseCard>
           </div>
         </div>
       </div>
-    </BaseModal>
-  </BaseCard>
+      <div class="col-md-3">
+        <BaseCard>
+          <div>
+            <md-list md-expand-single="true">
+              <md-subheader>Filters</md-subheader>
+              <md-list-item md-expand md-expanded.sync="true">
+                <span class="md-list-item-text">Status</span>
+
+                <md-list slot="md-expand">
+                  <md-list-item class="md-inset">
+                    <md-checkbox v-model="status" value="active" />
+                    <span class="md-list-item-text">Active</span>
+                  </md-list-item>
+                  <md-list-item class="md-inset">
+                    <md-checkbox v-model="status" value="disabled" />
+                    <span class="md-list-item-text">Disabled</span>
+                  </md-list-item>
+                  <md-list-item class="md-inset">
+                    <md-checkbox v-model="status" value="blocked" />
+                    <span class="md-list-item-text">blocked</span>
+                  </md-list-item>
+                </md-list>
+              </md-list-item>
+              <md-list-item md-expand md-expanded.sync="true">
+                <span class="md-list-item-text">Billing type</span>
+
+                <md-list slot="md-expand">
+                  <md-list-item class="md-inset">
+                    <md-checkbox v-model="status" value="active" />
+                    <span class="md-list-item-text">Active</span>
+                  </md-list-item>
+                  <md-list-item class="md-inset">
+                    <md-checkbox v-model="status" value="disabled" />
+                    <span class="md-list-item-text">Disabled</span>
+                  </md-list-item>
+                  <md-list-item class="md-inset">
+                    <md-checkbox v-model="status" value="blocked" />
+                    <span class="md-list-item-text">blocked</span>
+                  </md-list-item>
+                </md-list>
+              </md-list-item>
+            </md-list>
+          </div>
+        </BaseCard>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-// import BaseSelect from "../../../components/forms/_select.vue";
-import BaseCard from "../../../components/partials/_basecard.vue";
 import BaseTable from "../../../components/layouts/_table.vue";
-import BaseModal from "../../../components/partials/_modal.vue";
-import BaseSelect from "../../../components/forms/_select.vue";
+import BaseCard from "../../../components/partials/_basecard.vue";
 import BasePagination from "../../../components/layouts/_pagination.vue";
-import BaseInput from "../../../components/forms/_input.vue";
 export default {
   components: {
-    BaseTable,
     BaseCard,
-    BaseSelect,
-    BaseModal,
+    BaseTable,
     BasePagination,
-    BaseInput,
   },
   data() {
     return {
+      loader: false,
+      tableTypes: [
+        {
+          title: "Customers",
+          value: "2k",
+        },
+        {
+          title: "New customers",
+          value: "10",
+        },
+        {
+          title: "Updated Customers",
+          value: "10",
+        },
+        {
+          title: "Deleted Customers",
+          value: "0",
+        },
+      ],
+      status: "active",
       customers: [
         {
           first_name: "John",
@@ -210,13 +241,6 @@ export default {
         {
           key: "status",
           label: "Status",
-          formatter: (item) => {
-            if (item.paystack_id) {
-              return "Customer Synced";
-            } else {
-              return "Unsynced";
-            }
-          },
         },
         {
           key: "actions",
@@ -253,11 +277,10 @@ export default {
       this.currentPage = page;
     },
 
-    // listen for emitted event on table row
-    rowSelected(item) {
-      this.modalContent = item;
-      this.$refs.basemodal.showModal();
-    },
+    updateTable(index){
+      console.log(index)
+      this.loader = true
+    }
   },
 
   async mounted() {

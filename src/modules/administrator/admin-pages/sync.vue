@@ -1,200 +1,83 @@
 <template>
   <div class="m-0 m-0">
     <div class="row">
-      <div class="col">
+      <div
+        class="col-md-4"
+        v-for="(items, index) in syncLabels"
+        :key="index"
+        @click="check(items)"
+      >
         <BaseOverlay :show="loader">
-          <BaseCard :baseExClass="'shadow-sm border-0 card--hover'">
-            <div class="d-flex flex-column align-items-center">
-              <p class="fw-bold text-capitalize">Pending</p>
-              <p class="fs-1 fw-bold">
-                {{ 0 }}
-              </p>
-              <p class="text-primary">+2%</p>
-            </div>
-          </BaseCard>
-        </BaseOverlay>
-      </div>
-      <div class="col">
-        <BaseOverlay :show="loader">
-          <BaseCard :baseExClass="'shadow-sm border-0 card--hover'">
-            <div class="d-flex flex-column align-items-center">
-              <p class="fw-bold text-capitalize">Local</p>
-              <p class="fs-1 fw-bold">
-                {{ overviewContent.local_database || 0 }}
-              </p>
-              <p class="text-primary">+2%</p>
-            </div>
-          </BaseCard>
-        </BaseOverlay>
-      </div>
-      <div class="col">
-        <BaseOverlay :show="loader">
-          <BaseCard :baseExClass="'shadow-sm border-0 card--hover'">
-            <div class="d-flex flex-column align-items-center">
-              <p class="fw-bold text-capitalize">Total</p>
-              <p class="fs-1 fw-bold">
-                {{ overviewContent.total_splynx_customers || 0 }}
-              </p>
-              <p class="text-primary">+2%</p>
-            </div>
-          </BaseCard>
-        </BaseOverlay>
-      </div>
-      <div class="col">
-        <BaseOverlay :show="loader">
-          <BaseCard :baseExClass="'shadow-sm border-0 card--hover'">
-            <div class="d-flex flex-column align-items-center">
-              <p class="fw-bold text-capitalize">runing processes</p>
-              <p class="fs-1 fw-bold">
-                {{ process || 0 }}
-              </p>
-              <p class="text-primary">+2%</p>
-            </div>
-          </BaseCard>
-        </BaseOverlay>
-      </div>
-      <div class="col">
-        <BaseOverlay :show="loader">
-          <BaseCard :baseExClass="'shadow-sm border-0 card--hover'">
-            <div class="d-flex flex-column align-items-center">
-              <p class="fw-bold text-capitalize">History</p>
-              <p class="fs-1 fw-bold">
-                {{ 0 }}
-              </p>
-              <p class="text-primary">+2%</p>
-            </div>
-          </BaseCard>
-        </BaseOverlay>
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-end mt-5 px-3">
-      <button class="btn btn-primary mr-3" type="button" @click="showModal">
-        Start
-      </button>
-      <button class="btn btn-primary" type="button" @click="disconnect">
-        Stop
-      </button>
-    </div>
-
-    <div class="mt-5">
-      <div class="row p-0">
-        <div class="col-md-12">
-          <md-progress-bar
-            class="md-primary"
-            md-mode="indeterminate"
-            v-if="isStart"
-          ></md-progress-bar>
-          <BaseOverlay :show="overlayLoader">
-            <div class="fixed">
-              <input
-                placeholder="Search..."
-                class="w-100 form-control fixed-input"
-              />
-              <div
-                class="container content-sharp shadow-sm"
-                v-for="(items, index) in computedCustomers"
-                :key="index"
-              >
-                <p class="text-left">
-                  {{ items.data.first_name }} {{ items.data.last_name }}
-                </p>
-
-                <span class="">{{ items.data.email }}</span>
-                <span class="text-primary text-capitalize">{{
-                  items.data.billing_type.replace(/\_/g, " ")
-                }}</span>
-                <span
-                  class="text-primary text-capitalize"
-                  v-if="items.data.status === 'active'"
-                  >{{ items.data.status }}</span
-                >
-                <span class="text-danger text-capitalize" v-else>{{
-                  items.data.status
-                }}</span>
-
-                <span class="text-success" v-if="items.data.created">
-                  Customer was created
-                </span>
-                <span class="text-warning" v-else> Customer was Updated </span>
-              </div>
-            </div></BaseOverlay
+          <BaseCard
+            :footer="true"
+            :exFooter="'border-0 bg-transparent'"
+            :baseExClass="'shadow border-0 card--hover ' + items.bgColor"
           >
-        </div>
+            <div>
+              <h5 :class="'fw-lighter ' + items.textColor">{{ items.name }}</h5>
+              <h1 :class="items.textColor">{{ 75 }}</h1>
+            </div>
+            <template v-slot:footer>
+              <div class="">
+                <a href="#" :class="items.textColor">{{ items.sublink }}</a>
+              </div>
+            </template>
+          </BaseCard>
+        </BaseOverlay>
       </div>
     </div>
 
-    <BaseToast :label="msg" />
-    <BaseModal ref="baseModalComponentRef">
-      <div class="d-flex-inline flex-column">
-        <p>Basic actions</p>
-        <div class="row gy-2">
-          <div class="col">
-            <b-badge
-              pill
-              variant="primary"
-              class="px-4 py-2"
-              @click="syncType = 'Local'"
-              >Sync Local with Splynx</b-badge
-            >
-          </div>
-          <div class="col">
-            <b-badge
-              pill
-              variant="primary"
-              class="px-4 py-2"
-              @click="syncType = 'Paystack'"
-              >Sync Local with paystack</b-badge
-            >
-          </div>
-          <div class="col">
-            <b-badge
-              pill
-              variant="primary"
-              class="px-4 py-2"
-              @click="syncType = 'Quickbooks'"
-              >Sync Local With quickbooks</b-badge
-            >
-          </div>
-          <div class="col">
-            <b-badge pill variant="primary" class="px-4 py-2">History</b-badge>
-          </div>
-        </div>
-        <div class="mt-4">
-          <p>Advanced Synchronization</p>
-          <div class="row gy-2">
-            <div class="col">
-              <b-badge pill variant="primary" class="px-4 py-2"
-                >Customer Synchronization</b-badge
-              >
-            </div>
-            <div class="col">
-              <b-badge pill variant="primary" class="px-4 py-2"
-                >Create Sales Receipt</b-badge
-              >
-            </div>
-          </div>
-        </div>
+    <div class="content-area mt-5">
+      <div class="d-flex justify-content-center" v-if="selectedType === ''">
+        <BaseState :icons="'hourglass_disabled'" />
       </div>
-    </BaseModal>
+      <component :is="selectedType"></component>
+    </div>
   </div>
 </template>
 
 <script>
-import BaseModal from "../../../components/partials/_modal.vue";
+import BaseState from "../../../components/partials/_empty.vue";
 import BaseOverlay from "../../../components/partials/_overlay.vue";
-import BaseToast from "../../../components/partials/_toast.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
+import Customers from "../admin-partials/_syncActivities.vue";
 import { developmentUrl } from "../../../plugins/axiosInstance";
 export default {
   components: {
-    BaseToast,
     BaseCard,
     BaseOverlay,
-    BaseModal,
+    Customers,
+    BaseState,
   },
   data() {
     return {
+      selectedType: "Customers",
+      syncLabels: [
+        {
+          name: "Customers",
+          value: 1,
+          textColor: "text-white",
+          bgColor: "bg-primary",
+          type: "customers",
+          sublink: "View all",
+        },
+        {
+          name: "Sales Reciepts",
+          value: 2,
+          textColor: "text-dark",
+          bgColor: "bg-white",
+          type: "sales",
+          sublink: "View all",
+        },
+        {
+          name: "Invoices",
+          value: 3,
+          textColor: "text-white",
+          bgColor: "bg-primary",
+          type: "invoice",
+          sublink: "View all",
+        },
+      ],
       overlayLoader: false,
       syncType: "",
       fields: [],
@@ -220,6 +103,16 @@ export default {
     },
   },
   methods: {
+    check(data = "customers") {
+      switch (data.type) {
+        case "customers":
+          this.selectedType = "customers";
+          break;
+        default:
+          this.selectedType = "";
+          break;
+      }
+    },
     // controll modal
     HideModal() {
       this.$refs.baseModalComponentRef.hideModal();
