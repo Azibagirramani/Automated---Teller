@@ -43,7 +43,9 @@
                   <button class="w-100 btn" type="button">
                     help and support
                   </button>
-                  <button class="w-100 btn" type="button" @click="authenticate">sign in</button>
+                  <button class="w-100 btn" type="button" @click="authenticate">
+                    sign in
+                  </button>
                 </div>
               </form>
             </div>

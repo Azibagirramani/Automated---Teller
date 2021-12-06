@@ -93,7 +93,8 @@
                 />
               </div>
               <div class="mt-2">
-                <p class="mb-2">Dates</p> {{ queryparams.add_date }}
+                <p class="mb-2">Dates</p>
+                {{ queryparams.add_date }}
                 <div class="d-flex flex-column">
                   <BaseDatePicker
                     v-model="queryparams.add_date"
@@ -255,6 +256,7 @@ export default {
         // const day = date.getDate() - 1;
         // const dateTime = `${year}-${month}-${day}`;
         // this.queryparams.add_date = dateTime;
+        
 
         localQuery = {
           ...this.queryparams,

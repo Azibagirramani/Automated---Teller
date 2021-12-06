@@ -19,7 +19,6 @@ class Customers {
   }
 
   async customerFilter(data) {
-
     return await this.Axois.get(
       `${this.Routes.customers.filter}?add_date=${data.add_date || ""}&status=${
         data.status || ""
