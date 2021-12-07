@@ -27,6 +27,10 @@ class Customers {
       }&search=${data.search || ""}`
     );
   }
+
+  async customerSummary() {
+    return await this.Axois.get(`${this.Routes.customers.summary}`);
+  }
 }
 
 export default Customers;

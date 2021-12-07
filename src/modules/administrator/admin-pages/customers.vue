@@ -256,7 +256,6 @@ export default {
         // const day = date.getDate() - 1;
         // const dateTime = `${year}-${month}-${day}`;
         // this.queryparams.add_date = dateTime;
-        
 
         localQuery = {
           ...this.queryparams,

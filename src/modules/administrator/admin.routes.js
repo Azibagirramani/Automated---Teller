@@ -26,6 +26,16 @@ const routes = [
         name: "Data Syncronization",
         component: () => import("./admin-pages/sync.vue"),
       },
+      {
+        path: "settlements",
+        name: "Settlements",
+        component: () => import("./admin-pages/settlements.vue"),
+      },
+      {
+        path: "transactions",
+        name: "Transactions",
+        component: () => import("./admin-pages/transactions.vue"),
+      },
     ],
 
     beforeEnter: (to, from, next) => {

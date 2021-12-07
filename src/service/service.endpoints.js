@@ -8,8 +8,21 @@ export default {
     overview: "descriptions",
   },
 
+  splynx: {
+    splynx_transactions: "splynx-transactions",
+  },
+
   customers: {
     fetchAll: "customers",
     filter: "/customers/filter",
+    summary: "customer-summary",
+  },
+
+  transaction: {
+    fetchAll: "flutterwave/transactions",
+  },
+
+  process: {
+    stats: "get_process_stats",
   },
 };

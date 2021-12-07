@@ -10,6 +10,14 @@
           <span class="md-title text-uppercase text-white">{{
             this.$route.name
           }}</span>
+
+          <div class="md-toolbar-section-end">
+            <div class="d-flex">
+              <md-avatar class="md-avatar-icon md-small md-accent">
+                <md-ripple>KM</md-ripple>
+              </md-avatar>
+            </div>
+          </div>
         </div>
       </md-app-toolbar>
 
@@ -34,6 +42,14 @@
           <md-list-item to="/portal">
             <md-icon>history</md-icon>
             <span class="md-list-item-text">Activities</span>
+          </md-list-item>
+          <md-list-item to="/portal/settlements">
+            <md-icon>payments</md-icon>
+            <span class="md-list-item-text">settlements</span>
+          </md-list-item>
+          <md-list-item to="/portal/transactions">
+            <md-icon>paid</md-icon>
+            <span class="md-list-item-text">Transactions</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
