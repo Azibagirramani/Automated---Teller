@@ -58,12 +58,17 @@
         <router-view></router-view>
       </md-app-content>
     </md-app>
+    <BaseToast />
   </div>
 </template>
 
 <script>
+import BaseToast from "../../components/partials/_toast.vue";
 export default {
   name: "index",
+  components: {
+    BaseToast
+  },
   data() {
     return {
       menuVisible: false,

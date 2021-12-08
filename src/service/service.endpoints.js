@@ -25,4 +25,9 @@ export default {
   process: {
     stats: "get_process_stats",
   },
+
+  paystack: {
+    fetchAll: "paystack",
+    settlements: "paystack/settlements"
+  },
 };

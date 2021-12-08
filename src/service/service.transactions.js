@@ -6,8 +6,12 @@ class Transaction {
     this.Routes = routes;
   }
 
-  async flutterwave() {
-    return await this.Axois.get(`${this.Routes.transaction.fetchAll}`);
+  async paystackTransactions() {
+    return await this.Axois.get(`${this.Routes.paystack.fetchAll}`);
+  }
+
+  async paystackSettlements() {
+    return await this.Axois.get(`${this.Routes.paystack.settlements}`);
   }
 }
 

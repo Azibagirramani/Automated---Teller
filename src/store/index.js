@@ -9,6 +9,7 @@ export default new Vuex.Store({
       isSyncing: false,
       syncError: null,
       syncSuccess: "",
+      label: "",
     },
     user: {},
     isAuth: false,

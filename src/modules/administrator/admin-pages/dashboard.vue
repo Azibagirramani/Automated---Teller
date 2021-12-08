@@ -54,7 +54,8 @@
               <BaseCard
                 :header="true"
                 :exHeader="'py-0 border-0 mt-2'"
-                :baseExClass="'border-0 shadow-0 py-0'"
+                :baseExClass="'border-0 shadow-0 py-0 card--hover'"
+                :to="'/portal/customers'"
                 :exClass="'py-0'"
               >
                 <template v-slot:header>
@@ -73,8 +74,9 @@
               <BaseCard
                 :header="true"
                 :exHeader="'py-0 border-0 mt-2'"
-                :baseExClass="'border-0 shadow-0 py-0'"
+                :baseExClass="'border-0 shadow-0 py-0 card--hover'"
                 :exClass="'py-0'"
+                :to="'/transactions/customers'"
               >
                 <template v-slot:header>
                   <div class="d-flex justify-content-between">
@@ -91,8 +93,9 @@
               <BaseCard
                 :header="true"
                 :exHeader="'py-0 border-0 mt-2'"
-                :baseExClass="'border-0 shadow-0 py-0'"
+                :baseExClass="'border-0 shadow-0 py-0 card--hover'"
                 :exClass="'py-0'"
+                :to="'/portal/settlements'"
               >
                 <template v-slot:header>
                   <div class="d-flex justify-content-between">
@@ -102,7 +105,7 @@
                     </p>
                   </div>
                 </template>
-                <h1 class="text-dark">1000</h1>
+                <h1 class="text-dark">{{ content.transactions }}</h1>
               </BaseCard>
             </div>
             <div class="col">
@@ -167,14 +170,7 @@
 
           <!-- database and device summary -->
           <div class="mt-3">
-            <div class="row">
-              <div class="col-md-6">
-                <BaseCard :baseExClass="'border-0'"> <BaseChart /></BaseCard>
-              </div>
-              <div class="col-md-6">
-                <BaseCard :baseExClass="'border-0'"> <BaseChart /></BaseCard>
-              </div>
-            </div>
+            <BaseCard :baseExClass="'border-0'"> <BaseTable /></BaseCard>
           </div>
         </div>
         <div class="col-md-3">
@@ -184,13 +180,7 @@
                 >Recent Activities</md-subheader
               >
               <md-list-item>
-                <span class="md-list-item-text">/usr/bin</span>
-              </md-list-item>
-              <md-list-item>
-                <span class="md-list-item-text">/usr/bin</span>
-              </md-list-item>
-              <md-list-item>
-                <span class="md-list-item-text">/usr/bin</span>
+                <span class="md-list-item-text">--No Stats--</span>
               </md-list-item>
             </md-list>
             <BaseCard
@@ -210,7 +200,7 @@
               </template>
               <div class="p-0 text-white">
                 <p class="m-0">Sync stats</p>
-                <h3>20</h3>
+                <h3>0</h3>
               </div>
             </BaseCard>
           </BaseCard>
@@ -222,7 +212,7 @@
 
 <script>
 // import BaseState from "../../../components/chart/_baseChart.vue";
-import BaseChart from "../../../components/chart/_baseChart.vue";
+import BaseTable from "../../../components/layouts/_table.vue";
 import BaseOverlay from "../../../components/partials/_overlay.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
 import BaseButton from "../../../components/forms/_button.vue";
@@ -232,7 +222,7 @@ export default {
     BaseCard,
     BaseButton,
     BaseOverlay,
-    BaseChart,
+    BaseTable,
   },
   data() {
     return {
@@ -348,9 +338,11 @@ export default {
       const overview = await this.$CustomerService.customerSummary();
       const stats = await this.$Stats.process_stats();
       const transactions = await this.$Stats.transactions();
+      const settlements = await this.$Transaction.paystackSettlements();
       this.content.activeCustomers = overview.data.customers;
       this.content.process = stats.data.length;
       this.content.transactions = transactions.data.length;
+      this.content.settlements = settlements.meta.total;
       return;
     } catch (error) {
       console.log(error);

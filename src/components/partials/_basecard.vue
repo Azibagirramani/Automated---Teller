@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex-fil" :class="baseExClass">
+  <div class="card flex-fil" :class="baseExClass" @click="nextRoute">
     <div class="card-header bg-transparent" :class="exHeader" v-if="header">
       <slot name="header"></slot>
     </div>
@@ -16,6 +16,10 @@
 <script>
 export default {
   props: {
+    to: {
+      type: String,
+      required: false
+    },
     footer: {
       type: Boolean,
       default: false,
@@ -52,6 +56,12 @@ export default {
       type: String,
       default: "",
       required: false,
+    },
+  },
+
+  methods: {
+    nextRoute() {
+      this.$router.push(this.to);
     },
   },
 };

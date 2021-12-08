@@ -3,10 +3,17 @@
     varient="bg-primary"
     :md-position="position"
     :md-duration="isInfinity ? Infinity : duration"
-    :md-active.sync="showSnackbar"
+    :md-active="showSnackbar || this.$store.state.sync.isSyncing"
     md-persistent
   >
-    <span>{{ label }}</span>
+    <div class="d-flex justify-content-end gap-4 align-content-center">
+      {{ label || this.$store.state.sync.label }}
+      <md-progress-spinner
+        class="md-accent"
+        md-mode="indeterminate"
+        :md-diameter="30"
+      ></md-progress-spinner>
+    </div>
   </md-snackbar>
 </template>
 
@@ -19,11 +26,11 @@ export default {
     },
     position: {
       type: String,
-      default: "center",
+      default: "left",
     },
     duration: {
-      type: Number,
-      default: 5000,
+      type: String,
+      default: "Infinity",
       required: false,
     },
     isInfinity: {
@@ -33,18 +40,14 @@ export default {
     },
     showSnackbar: {
       type: Boolean,
-      default: function () {
-        return this.label !== "" ? true : false;
-      },
+      default: false,
       required: false,
     },
   },
   watch: {
     label: {
-      handler(val) {
-        console.log(val);
+      handler() {
         this.showSnackbar = true;
-
         setTimeout(() => {
           this.showSnackbar = false;
         }, this.duration);
