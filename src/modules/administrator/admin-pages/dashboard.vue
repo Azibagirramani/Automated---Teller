@@ -12,7 +12,9 @@
               >
                 <div>
                   <h5 class="text-white fw-lighter">Active Customers</h5>
-                  <h1 class="text-white">{{ content.activeCustomers }}</h1>
+                  <h1 class="text-white">
+                    {{ content.activeCustomers || 0 }}
+                  </h1>
                 </div>
                 <template v-slot:footer>
                   <div class="">
@@ -43,7 +45,12 @@
                     ></b-icon>
                   </div>
                 </template>
-                <div></div>
+                <div>
+                  <BaseChart
+                    :series="barChart.series"
+                    :options="barChart.options"
+                  />
+                </div>
               </BaseCard>
             </div>
           </div>
@@ -66,7 +73,7 @@
                     </p>
                   </div>
                 </template>
-                <h1 class="text-dark">{{ content.activeCustomers | 0 }}</h1>
+                <h1 class="text-dark">{{ content.activeCustomers || 0 }}</h1>
               </BaseCard>
             </div>
 
@@ -86,7 +93,7 @@
                     </p>
                   </div>
                 </template>
-                <h1 class="text-dark">{{ content.transactions }}</h1>
+                <h1 class="text-dark">{{ content.transactions || 0 }}</h1>
               </BaseCard>
             </div>
             <div class="col">
@@ -105,7 +112,7 @@
                     </p>
                   </div>
                 </template>
-                <h1 class="text-dark">{{ content.transactions }}</h1>
+                <h1 class="text-dark">{{ content.transactions || 0 }}</h1>
               </BaseCard>
             </div>
             <div class="col">
@@ -141,7 +148,7 @@
                     </p>
                   </div>
                 </template>
-                <h1 class="text-dark">{{ content.process }}</h1>
+                <h1 class="text-dark">{{ content.process || 0 }}</h1>
               </BaseCard>
             </div>
           </div>
@@ -216,6 +223,7 @@ import BaseTable from "../../../components/layouts/_table.vue";
 import BaseOverlay from "../../../components/partials/_overlay.vue";
 import BaseCard from "../../../components/partials/_basecard.vue";
 import BaseButton from "../../../components/forms/_button.vue";
+import BaseChart from "../../../components/chart/_baseChart.vue";
 export default {
   name: "Dashboard",
   components: {
@@ -223,6 +231,7 @@ export default {
     BaseButton,
     BaseOverlay,
     BaseTable,
+    BaseChart,
   },
   data() {
     return {
@@ -248,86 +257,66 @@ export default {
       details: {},
       customers: [],
       loader: false,
-      series: [
-        {
-          name: "series1",
-          data: [140, 40, 28, 51, 42, 109, 100],
-        },
-        {
-          name: "series2",
-          data: [170, 32, 100, 32, 34, 52, 41],
-        },
-        {
-          name: "series2",
-          data: [11, 32, 45, 32, 34, 52, 201],
-        },
-      ],
-      series2: [
-        {
-          name: "series1",
-          data: [
-            140, 40, 28, 51, 42, 109, 100, 40, 28, 51, 42, 109, 100, 140, 40,
-            28, 51, 42, 109, 100, 40, 28, 51, 42, 109, 100,
-          ],
-        },
-      ],
-      tableData: [
-        {
-          name: "John Doe",
-          age: "30",
-        },
-      ],
-      options2: {
-        legend: {
-          show: false,
-        },
-        chart: {
-          type: "bar",
+      barChart: {
+        series: [
+          {
+            data: [
+              140, 40, 28, 51, 42, 109, 100, 140, 40, 28, 51, 42, 109, 100,
+            ],
+          },
+        ],
+        options: {
+          legend: {
+            show: false,
+          },
+          chart: {
+            type: "bar",
+            toolbar: {
+              show: false,
+            },
+          },
+          colors: ["#0E1635"],
+          dataLabels: {
+            enabled: false,
+          },
           toolbar: {
             show: false,
           },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: "straight",
-        },
-        xaxis: {
-          show: false,
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          },
-          axisTicks: {
-            show: false,
-          },
-        },
-        grid: {
-          yaxis: {
-            lines: {
-              show: false,
-            },
-          },
           xaxis: {
-            lines: {
-              show: false,
-            },
-          },
-        },
-        yaxis: {
-          labels: {
             show: false,
-          },
-          axisBorder: {
             labels: {
               show: false,
             },
+            axisBorder: {
+              show: false,
+            },
+            axisTicks: {
+              show: false,
+            },
+          },
+          grid: {
+            yaxis: {
+              lines: {
+                show: false,
+              },
+            },
+            xaxis: {
+              lines: {
+                show: false,
+              },
+            },
+          },
+          yaxis: {
+            labels: {
+              show: false,
+            },
+            axisBorder: {
+              labels: {
+                show: false,
+              },
+            },
           },
         },
-        colors: ["black", "#58b77d", "#d3fadf"],
       },
     };
   },

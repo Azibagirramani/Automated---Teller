@@ -9,7 +9,7 @@
     </div>
     <BaseCard :header="true">
       <template v-slot:header>
-        <h5>Transactions</h5>
+        <h6 class="text-mute">Transactions</h6>
       </template>
 
       <BaseOverlay :show="loader">
