@@ -13,9 +13,10 @@
 
           <div class="md-toolbar-section-end">
             <div class="d-flex">
-              <md-avatar class="md-avatar-icon md-small md-accent">
+              <!-- <md-avatar class="md-avatar-icon md-small md-accent">
                 <md-ripple>KM</md-ripple>
-              </md-avatar>
+              </md-avatar> -->\
+              <img src="../../assets/img/logo.jpg" class="img-fluid profile" />
             </div>
           </div>
         </div>
@@ -39,11 +40,11 @@
             <md-icon>cached</md-icon>
             <span class="md-list-item-text">Synchronize</span>
           </md-list-item>
-          <md-list-item to="/portal">
+          <md-list-item>
             <md-icon>history</md-icon>
             <span class="md-list-item-text">Activities</span>
           </md-list-item>
-          <md-list-item to="/portal/settlements">
+          <md-list-item>
             <md-icon>payments</md-icon>
             <span class="md-list-item-text">settlements</span>
           </md-list-item>
@@ -83,6 +84,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 // li a colors
 $link-color: #bcbcbd;
 

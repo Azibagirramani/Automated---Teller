@@ -130,7 +130,7 @@
                     </p>
                   </div>
                 </template>
-                <h1 class="text-dark">10</h1>
+                <h1 class="text-dark">0</h1>
               </BaseCard>
             </div>
             <div class="col">

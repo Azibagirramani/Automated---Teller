@@ -15,7 +15,7 @@
           >
             <div>
               <h5 :class="'fw-lighter ' + items.textColor">{{ items.name }}</h5>
-              <h1 :class="items.textColor">{{ 75 }}</h1>
+              <h1 :class="items.textColor">{{ 0 }}</h1>
             </div>
             <template v-slot:footer>
               <div class="">

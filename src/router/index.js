@@ -4,7 +4,15 @@ import AuthRoutes from "../modules/authentication/auth.routes";
 import DashboardRoutes from "../modules/administrator/admin.routes";
 Vue.use(VueRouter);
 
-const routes = [...AuthRoutes, ...DashboardRoutes];
+const routes = [
+  {
+    path: "/",
+    name: "home",
+    redirect: "authentication/login",
+  },
+  ...AuthRoutes,
+  ...DashboardRoutes,
+];
 
 const router = new VueRouter({
   mode: "history",

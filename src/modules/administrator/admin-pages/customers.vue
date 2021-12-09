@@ -152,17 +152,17 @@ export default {
       tableTypes: [
         {
           title: "Customers",
-          value: "2k",
+          value: "0",
           set: 1,
         },
         {
           title: "New customers",
-          value: "10",
+          value: "0",
           set: 2,
         },
         {
           title: "Updated Customers",
-          value: "10",
+          value: "0",
           set: 3,
         },
         {
